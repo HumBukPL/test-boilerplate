@@ -3,7 +3,7 @@ import LoginForm from '../../views/components/LoginForm'
 
 const LoginPage = () => {
 
-  const loginHandler = (loginData) => {
+  const loginHandler = (loginData: any) => {
     // Tutaj do backendu
   }
   

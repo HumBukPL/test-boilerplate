@@ -42,7 +42,7 @@ const RegisterForm = (props) => {
         <input type="password" required id='password_repeat' ref={passwordRepeatInputRef} />
       </div>
       <div className={classes.control}>
-        <label htmlFor='email'>Hasło</label>
+        <label htmlFor='email'>Email</label>
         <input type="password" required id='email' ref={emailInputRef} />
       </div>
       <div className={classes.control}>

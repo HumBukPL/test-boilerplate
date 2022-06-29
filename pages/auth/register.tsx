@@ -2,7 +2,7 @@ import RegisterForm from '../../views/components/RegisterForm'
 
 const RegisterPage = () => {
 
-  const registerHandler = (registerData) => {
+  const registerHandler = (registerData: any) => {  
     // Tutaj do backendu
   }
 
