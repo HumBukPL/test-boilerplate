@@ -1,0 +1,12 @@
+.save__btn{
+  background-color: red;
+  border-radius: 15px;
+  font-size: large;
+  width: 90%;
+}
+
+.field input{
+  background-color: white;
+  border-radius: 15px;
+  
+}
