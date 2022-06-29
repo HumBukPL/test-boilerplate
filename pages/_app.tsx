@@ -2,6 +2,8 @@ import App from 'next/app'
 import { ApolloProvider } from '@apollo/client'
 
 import apollo from '@lib/apolloClient'
+import Nav from '@views/components/Nav'
+import Footer from '@views/components/Footer'
 import '@styles/main.scss'
 
 class MyApp extends App {
@@ -10,7 +12,9 @@ class MyApp extends App {
 
     return (
       <ApolloProvider client={apollo}>
+        <Nav/>
         <Component {...pageProps} />
+        <Footer />
       </ApolloProvider>
     )
   }

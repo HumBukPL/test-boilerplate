@@ -10,9 +10,6 @@ const Home = () => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <Nav />
-
-    <Footer />
     <style jsx>{`
       .hero {
         width: 100%;
