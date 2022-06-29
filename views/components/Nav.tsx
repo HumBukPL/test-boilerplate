@@ -7,7 +7,19 @@ const Nav = () => (
     <ul>
       <li>
         <Link href="/">
-          <a>Home</a>
+          <a>HOME</a>
+        </Link>
+        <Link href="/tasks/all">
+          <a>MY TASK</a>
+        </Link>
+        <Link href="/tasks/new">
+          <a>NEW TASK</a>
+        </Link>
+        <Link href="/auth/login">
+          <a>LOGIN</a>
+        </Link>
+        <Link href="/auth/register">
+          <a>REGISTER</a>
         </Link>
       </li>
     </ul>
@@ -31,6 +43,7 @@ const Nav = () => (
       li {
         display: flex;
         padding: 6px 8px;
+        margin: 1rem 0;
       }
       a {
         color: #067df7;
