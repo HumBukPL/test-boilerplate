@@ -3,16 +3,28 @@ import Head from 'next/head'
 import Nav from '@views/components/Nav'
 import Footer from '@views/components/Footer'
 
-const Home = () => (
+export async function getServerSideProps(context: any) {
+  const res: any = await fetch(
+    'https://baconipsum.com/api/?type=meat-and-filler'
+  )
+  const data: any = await res.json()
+
+  return { props: { lorem: data } }
+}
+
+const Home = (props: any) => (
   <div>
     <Head>
       <title>Home</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-
-    <Nav />
-
-    <Footer />
+    <body>
+      <p className="row">{props.lorem[0]}</p>
+      <p className="row">{props.lorem[1]}</p>
+      <p className="row">{props.lorem[2]}</p>
+      <p className="row">{props.lorem[3]}</p>
+      <p className="row">{props.lorem[4]}</p>
+    </body>
     <style jsx>{`
       .hero {
         width: 100%;
