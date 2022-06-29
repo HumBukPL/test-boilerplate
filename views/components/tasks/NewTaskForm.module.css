@@ -1,12 +1,50 @@
 .save__btn{
   background-color: red;
-  border-radius: 15px;
+  border-radius: 1.4em;
   font-size: large;
-  width: 90%;
+  cursor: pointer;
+  padding: 1.2em;
 }
 
-.field input{
+.save__btn:hover{
+  background-color: brown;
+}
+
+.field label{
+  vertical-align: top;
+}
+
+.title input{
   background-color: white;
+  height: 1.5em;
+  width: 80%;
+  border-radius: 15px; 
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.newtask{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50em;
+}
+
+.form{
+  text-align: center;
+  background-color: bisque;
+  padding: 5em;
   border-radius: 15px;
-  
+  line-height: 3em;
+  width: 50em;
+}
+
+.ta{
+  resize: none;
+  background-color: white;
+  height: 10em;
+  border-radius: 15px;
+  width: 80%;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
 }
