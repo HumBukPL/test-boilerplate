@@ -1,9 +1,14 @@
 import React from 'react'
 
-import classes from './SingleTask.module.css'
+import classes from './SingleTask.module.scss'
 
 const SingleTask = (props: any) => {
-  return <div className={classes.task}></div>
+  return (
+    <li className={classes.task}>
+      <h1>{props.title}</h1>
+      <p>{props.desc}</p>
+    </li>
+  )
 }
 
 export default SingleTask
