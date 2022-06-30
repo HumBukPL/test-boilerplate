@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-<<<<<<< HEAD
 import bcrypt from "bcrypt";
 
 const { SECRET_KEY } = process.env
@@ -34,6 +33,16 @@ UserSchema.virtual('tasks', {
   
 //   return userObj
 // }
+
+UserSchema.pre('save', async function (next) {
+  const user = this
+
+  if (user.isModified('password')) {
+      user.password = await bcrypt.hash(user.password, 8)
+  }
+
+  next()
+})
 
 const User = mongoose.model('User', UserSchema);
 
