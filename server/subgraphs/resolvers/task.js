@@ -2,6 +2,7 @@ import { composeMongoose } from 'graphql-compose-mongoose'
 import { schemaComposer } from 'graphql-compose'
 
 import Task from '../models/task'
+import next from 'next'
 
 const customizationOptions = {}
 const TaskTC = composeMongoose(Task, customizationOptions)
