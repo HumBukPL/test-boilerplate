@@ -29,6 +29,7 @@ const TasksList = (props: any) => {
         {props.tasks.map((task) => {
           return (
             <SingleTask
+              id={task._id}
               title={task.title}
               desc={task.description}
               completed={task.completed}
