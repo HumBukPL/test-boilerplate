@@ -1,10 +1,4 @@
 import mongoose from "mongoose";
-<<<<<<< HEAD
-import bcrypt from "bcrypt";
-
-const { SECRET_KEY } = process.env
-=======
->>>>>>> ffb4c13a8aee7568e67703b587ce4219c2fb47f8
 import Task from './task'
 
 const UserSchema = new mongoose.Schema({
@@ -29,38 +23,13 @@ UserSchema.virtual('tasks', {
   foreignField: 'owner'
 })
 
-UserSchema.methods.toJSON = function() {
-  const user = this
-  const userObj = user.toObject()
-  delete userObj.password
+// UserSchema.methods.toJSON = function() {
+//   const user = this
+//   const userObj = user.toObject()
+//   delete userObj.password
   
-  return userObj
-}
-
-UserSchema.virtual('tasks', {
-  ref: 'Task',
-  localField: '_id',
-  foreignField: 'owner'
-})
-
-UserSchema.methods.toJSON = function() {
-  const user = this
-  const userObj = user.toObject()
-  delete userObj.password
-  
-  return userObj
-}
-
-UserSchema.pre('save', async function (next) {
-  const user = this
-
-  if (user.isModified('password')) {
-      user.password = await bcrypt.hash(user.password, 8)
-  }
-
-  next()
-})
-
+//   return userObj
+// }
 
 const User = mongoose.model('User', UserSchema);
 
