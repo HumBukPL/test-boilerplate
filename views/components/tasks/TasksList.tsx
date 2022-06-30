@@ -1,4 +1,5 @@
 import React from 'react'
+import {gql, useQuery} from '@apollo/client';
 
 import SingleTask from './SingleTask'
 import classes from './TasksList.module.scss'
@@ -25,11 +26,12 @@ const TasksList = (props: any) => {
   return (
     <section>
       <ul className={classes.task__list}>
-        {DUMMY_TASKS.map((task) => {
+        {props.tasks.map((task) => {
           return (
             <SingleTask
+              id={task._id}
               title={task.title}
-              desc={task.desc}
+              desc={task.description}
               completed={task.completed}
             />
           )

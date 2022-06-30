@@ -16,6 +16,7 @@ schemaComposer.createInputTC({
 
 const UserTC = composeMongoose(User, customizationOptions);
 
+<<<<<<< HEAD
 UserTC.addResolver({
   name: 'test',
   args: { record: 'CreateUserInput' },
@@ -26,6 +27,16 @@ UserTC.addResolver({
     return 
   }
 })
+=======
+const testAuth = async(resolve, source, args, context, info) => {
+  console.log('From middleware')
+
+  console.log('source: ' + source)
+  console.log('args: ' + args)
+  console.log('info: ' + info)
+  return resolve(source, args, context, info)
+}
+>>>>>>> 5b84962fd6be46d5d8308bfc9b67ba707f74da34
 
 const UserQuery = {
   userById: UserTC.mongooseResolvers.findById(),

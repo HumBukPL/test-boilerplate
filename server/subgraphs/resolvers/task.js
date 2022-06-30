@@ -2,9 +2,19 @@ import { composeMongoose } from 'graphql-compose-mongoose'
 import { schemaComposer } from 'graphql-compose'
 
 import Task from '../models/task'
+import next from 'next'
 
 const customizationOptions = {}
 const TaskTC = composeMongoose(Task, customizationOptions)
+
+const testAuth = async(resolve, source, args, context, info) => {
+  console.log('From middleware')
+
+  console.log('source: ' + source)
+  console.log('args: ' + args)
+  console.log('info: ' + info)
+  return resolve(source, args, context, info)
+}
 
 const TaskQuery = {
   taskById: TaskTC.mongooseResolvers.findById(),
@@ -25,7 +35,7 @@ const TaskQuery = {
 }
 
 const TaskMutation = {
-  taskCreateOne: TaskTC.mongooseResolvers.createOne(),
+  taskCreateOne: TaskTC.mongooseResolvers.createOne().withMiddlewares([testAuth]),
   taskCreateMany: TaskTC.mongooseResolvers.createMany(),
   taskUpdateById: TaskTC.mongooseResolvers.updateById(),
   taskUpdateOne: TaskTC.mongooseResolvers.updateOne(),

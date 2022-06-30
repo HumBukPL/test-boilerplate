@@ -4,13 +4,31 @@ import Link from 'next/link'
 import classes from './registerform.module.css'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { gql, useMutation } from '@apollo/client'
+
+// TO DO //
+// Obsluga bledu rejestracji
+// Przekierowanie na strone glowna zaraz po poprawnej rejestracji
 
 // Login zaczyna sie od litery
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
 // Mala litera + duza litera + cyfra + znak specjalny
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
+const CREATE_USER_MUTATION = gql`
+mutation UserCreateOne($record: CreateOneUserInput!) {
+  userCreateOne(record: $record) {
+    record {
+      login
+      password
+    }
+  }
+}
+`
+
 const RegisterForm = () => {
+
+  const [createNewUser] = useMutation(CREATE_USER_MUTATION)
 
   const userRef = useRef()
   const errRef = useRef()
@@ -55,13 +73,38 @@ const RegisterForm = () => {
     setErrMsg('')
   }, [user, pwd, matchPwd])
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const result = await createNewUser(
+    {
+      variables:
+        {
+          record:
+            {
+              login: user,
+              password: pwd
+            }
+        }
+    })
+
+    if (result?.errors){
+      setErrMsg('Nie udalo sie utowrzyc konta!')
+    } else {
+      // Zalogowanie i przekierowanie na strone główną
+      setSuccess(true)
+      console.log("Sukces!")
+    }
+
+  }
+
   return(
     <section className={classes.wraper}>
       <div className={classes.container}>
       {/* aria-live - dostepnosc dla czytnikow ekranu */}
       <p ref={errRef} className={errMsg ? 'errmsg' : classes.offscreen} aria-live='assertive'>{errMsg}</p>
       <h1>Register</h1>
-      <form className={classes.formBox}>
+      <form className={classes.formBox} onSubmit={handleSubmit}>
         <div className={classes.control}>
           <TextField
             label='Username'
@@ -119,7 +162,7 @@ const RegisterForm = () => {
           </p>
         </div>
         <div className={classes.control}>
-          <Button variant='outlined' disabled={!validName || !validPwd || !validMatch ? true : false}>
+          <Button type="submit" variant='outlined' disabled={!validName || !validPwd || !validMatch ? true : false}>
             Sign Up
           </Button>
         </div>

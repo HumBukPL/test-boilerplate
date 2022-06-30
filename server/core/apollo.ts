@@ -11,7 +11,7 @@ import path from 'path'
 import { TypegooseMiddleware } from '@server/serverLib/typegoose-middleware'
 import { buildSchema } from 'type-graphql'
 //////
-
+import express from 'express'
 import schema from "../subgraphs/resolvers/index"
 
 // const { User } = models
@@ -25,14 +25,16 @@ export default async function () {
   //   globalMiddlewares: [TypegooseMiddleware],
   //   // validate: false,
   // })
-
-  const apollo = new ApolloServer({
+  const apollo = new ApolloServer( {
     schema,
     context: ({ req, res }) => {
       return buildContext({ req, res, User: {} })
     },
   });
+
+
   console.log(apollo.graphqlPath);
   await apollo.start()
   return apollo
+
 }

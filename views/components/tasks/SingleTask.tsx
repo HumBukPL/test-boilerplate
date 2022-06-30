@@ -1,10 +1,24 @@
 import React, { useState } from 'react'
+import { FormControlLabel, FormGroup, Switch, Button } from '@mui/material'
+import { gql, useMutation } from '@apollo/client'
+import router from 'next/router'
 
-import { FormControlLabel, FormGroup, Switch } from '@mui/material'
 import classes from './SingleTask.module.scss'
+
+const DELETE_TASK_MUTATION = gql`
+  mutation TaskRemoveById($id: MongoID!) {
+    taskRemoveById(_id: $id) {
+      record {
+        _id
+      }
+    }
+  }
+`
 
 const SingleTask = (props: any) => {
   const [isCompleted, setIsCompleted] = useState(props.completed)
+  const [deleteTask] = useMutation(DELETE_TASK_MUTATION)
+
   const handleCompletedChange = (e) => {
     e.preventDefault()
 
@@ -12,17 +26,27 @@ const SingleTask = (props: any) => {
     //TODO: przeslac info do bazy danych
   }
 
+  const deleteButtonHandler = (e) => {
+    e.preventDefault()
+    //TODO: refetchQueries
+    deleteTask({ variables: { id: props.id }})
+  }
+
   return (
-    <li className={classes.task}>
+    <li id={props.id} className={classes.task}>
       <h1>{props.title}</h1>
       <p>{props.desc}</p>
-      <FormControlLabel
-        className={classes.switches}
-        control={
-          <Switch onChange={handleCompletedChange} checked={isCompleted} />
-        }
-        label="Completed"
-      />
+      <div className={classes.switches}>
+        <FormControlLabel
+          control={
+            <Switch onChange={handleCompletedChange} checked={isCompleted} />
+          }
+          label="Completed"
+        />
+        <Button variant="outlined" color="error" onClick={deleteButtonHandler}>
+          DELETE TASK
+        </Button>
+      </div>
     </li>
   )
 }
