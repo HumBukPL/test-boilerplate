@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 
 const { SECRET_KEY } = process.env
 import Task from './task'
+import Task from './task'
+import bcrypt from "bcrypt";
 
 const UserSchema = new mongoose.Schema({
   login:
