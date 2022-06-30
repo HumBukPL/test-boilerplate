@@ -76,7 +76,7 @@ const RegisterForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    createNewUser(
+    const result = await createNewUser(
     {
       variables:
         {
@@ -87,8 +87,16 @@ const RegisterForm = () => {
             }
         }
     })
-  }
 
+    if (result?.errors){
+      setErrMsg('Nie udalo sie utowrzyc konta!')
+    } else {
+      // Zalogowanie i przekierowanie na strone główną
+      setSuccess(true)
+      console.log("Sukces!")
+    }
+
+  }
 
   return(
     <section className={classes.wraper}>
