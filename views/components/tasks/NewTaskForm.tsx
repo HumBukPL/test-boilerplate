@@ -1,6 +1,8 @@
 import React from 'react'
 import { useRef, useState } from 'react'
 import router, { useRouter } from 'next/router'
+import ButtonMUI from '@mui/material/Button'
+import { TextField } from '@mui/material'
 
 import classes from './NewTaskForm.module.css'
 
@@ -24,21 +26,42 @@ const NewTaskForm = (props: any) => {
 
   if (sendingTask) return <h1>Saving task</h1>
   return (
-    <div className={classes.newtask}>
-      <form className={classes.form} onSubmit={onSubmitForm}>
-        <div className={classes.title}>
-          <label htmlFor="title">Tytuł:</label>
-          <input type="text" ref={titleInputRef} required />
-        </div>
-        <div className={classes.field}>
-          <label htmlFor="desc">Opis:</label>
-          <textarea className={classes.ta} ref={descInputRef} required />
-        </div>
-        <div className={classes.field}>
-          <button className={classes.save__btn}>ZAPISZ TASKA</button>
-        </div>
-      </form>
-    </div>
+    <React.Fragment>
+      <h1 className={classes.pageTitle}>Add new task</h1>
+      <div className={classes.newtask}>
+        <form className={classes.form} onSubmit={onSubmitForm}>
+          <div className={classes.title}>
+            <TextField
+              className={classes.field}
+              fullWidth
+              id="outlined-basic"
+              label="Title"
+              variant="outlined"
+              ref={titleInputRef}
+              required
+            />
+          </div>
+          <div className={classes.field}>
+            <TextField
+              className={classes.field}
+              multiline
+              fullWidth
+              id="outlined-basic"
+              label="Description"
+              variant="outlined"
+              ref={descInputRef}
+              rows="10"
+              required
+            />
+          </div>
+          <div className={classes.field}>
+            <ButtonMUI variant="contained" color="primary">
+              SAVE TASK
+            </ButtonMUI>
+          </div>
+        </form>
+      </div>
+    </React.Fragment>
   )
 }
 
