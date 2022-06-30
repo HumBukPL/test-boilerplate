@@ -1,5 +1,6 @@
 import React from 'react'
 
+import SingleTask from './SingleTask'
 import classes from './NewTaskForm.module.css'
 
 const TasksList = (props: any) => {
