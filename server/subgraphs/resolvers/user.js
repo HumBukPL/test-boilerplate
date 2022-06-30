@@ -5,6 +5,15 @@ import User from "../models/user"
 const customizationOptions = {};
 const UserTC = composeMongoose(User, customizationOptions);
 
+const testAuth = async(resolve, source, args, context, info) => {
+  console.log('From middleware')
+
+  console.log('source: ' + source)
+  console.log('args: ' + args)
+  console.log('info: ' + info)
+  return resolve(source, args, context, info)
+}
+
 const UserQuery = {
   userById: UserTC.mongooseResolvers.findById(),
   userByIds: UserTC.mongooseResolvers.findByIds(),
