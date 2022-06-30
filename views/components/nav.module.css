@@ -4,6 +4,10 @@
 }
 
 .navbar{
-  background-color: aqua;
+  background-color: #887f7f;
   padding: 20px;
+}
+
+.navbar a.active{
+  background-color: #585555;
 }
