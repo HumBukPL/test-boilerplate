@@ -7,7 +7,7 @@ import TasksList from '@views/components/tasks/TasksList'
 const Tasks = () => {
   return (
     <React.Fragment>
-      <h1>MOJE TASKI</h1>
+      <h1>MY TASKS</h1>
       <TasksList />
     </React.Fragment>
   )
