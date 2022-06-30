@@ -39,6 +39,9 @@ flex-direction: column;
 .control{
   width: 70%;
 }
+.control > * > *{
+  margin: 0px 10px 0px 10px;
+}
 .instructions{
   background-color: #dfdfdf;
   border-radius: 10px;
@@ -65,4 +68,7 @@ flex-direction: column;
 
 .control:last-of-type{
   margin-top: 25px;
+}
+.loginButton{
+  margin-top:25px;
 }

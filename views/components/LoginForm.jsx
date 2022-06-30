@@ -2,7 +2,10 @@ import React from 'react'
 import { useRef, useState, useEffect } from 'react'
 import classes from './registerform.module.css'
 import Link from 'next/link'
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, Box } from '@mui/material'
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
 
 // Login zaczyna sie od litery
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
@@ -54,39 +57,45 @@ const LoginForm = () => {
         <h1>Login</h1>
         <form className={classes.formBox}>
           <div className={classes.control}>
-            <TextField 
-              label='Username'
-              type='text'
-              id='username'
-              ref={userRef}
-              autocomplete='off'
-              onChange={(e) => setUser(e.target.value)}
-              required
-              aria-invalid={validName ? 'false' : 'true'}
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
-            />
+            <Box sx={{display: 'flex', alignItems: 'center'}}>
+              <PersonOutlineRoundedIcon sx={{fontSize: 40}}/>
+              <TextField 
+                label='Username'
+                type='text'
+                id='username'
+                ref={userRef}
+                autocomplete='off'
+                onChange={(e) => setUser(e.target.value)}
+                required
+                aria-invalid={validName ? 'false' : 'true'}
+                onFocus={() => setUserFocus(true)}
+                onBlur={() => setUserFocus(false)}
+              />
+            </Box>
           </div>
           <div className={classes.control}>
-            <TextField 
-              label='Password'
-              type='password'
-              id='password'
-              onChange={(e) => setPwd(e.target.value)}
-              required
-              aria-invalid={validPwd ? 'false' : 'true'}
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
-            />
+            <Box sx={{display: 'flex', alignItems: 'center'}}>
+              <VpnKeyRoundedIcon sx={{fontSize: 40}}/>
+              <TextField 
+                label='Password'
+                type='password'
+                id='password'
+                onChange={(e) => setPwd(e.target.value)}
+                required
+                aria-invalid={validPwd ? 'false' : 'true'}
+                onFocus={() => setPwdFocus(true)}
+                onBlur={() => setPwdFocus(false)}
+              />
+            </Box>
           </div>
           <div className={classes.control}>
-            <Button variant='outlined' disabled={!validName || !validPwd ? true : false}>
+            <Button className={classes.loginButton} variant='outlined' disabled={!validName || !validPwd ? true : false }>
               Sign in
             </Button>
           </div>
           <div className={classes.control}>
             <span>Need account?</span>
-            <Link href="/auth/register"><a>Sign in</a></Link>
+            <Link href="/auth/register"><a>Sign up</a></Link>
           </div>
         </form>
       </div>
