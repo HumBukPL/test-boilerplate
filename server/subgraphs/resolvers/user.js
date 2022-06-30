@@ -1,9 +1,31 @@
 import { composeMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
 
+
 import User from "../models/user"
 const customizationOptions = {};
+
+schemaComposer.createInputTC({
+  name: 'CreateUserInput',
+  fields:
+  {
+    login: 'String',
+    password: 'String'
+  }
+});
+
 const UserTC = composeMongoose(User, customizationOptions);
+
+UserTC.addResolver({
+  name: 'test',
+  args: { record: 'CreateUserInput' },
+  type: UserTC,
+  resolve: async ({source, args}) =>
+  {
+    console.log(args)
+    return 
+  }
+})
 
 const UserQuery = {
   userById: UserTC.mongooseResolvers.findById(),
@@ -24,7 +46,7 @@ const UserQuery = {
 };
 
 const UserMutation = {
-  userCreateOne: UserTC.mongooseResolvers.createOne(),
+  userCreateOne: UserTC.getResolver('test'),
   userCreateMany: UserTC.mongooseResolvers.createMany(),
   userUpdateById: UserTC.mongooseResolvers.updateById(),
   userUpdateOne: UserTC.mongooseResolvers.updateOne(),
