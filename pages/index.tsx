@@ -1,7 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import Nav from '@views/components/Nav'
-import Footer from '@views/components/Footer'
 
 export async function getServerSideProps(context: any) {
   const res: any = await fetch(
@@ -19,11 +17,7 @@ const Home = (props: any) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <body>
-      <p className="row">{props.lorem[0]}</p>
-      <p className="row">{props.lorem[1]}</p>
-      <p className="row">{props.lorem[2]}</p>
-      <p className="row">{props.lorem[3]}</p>
-      <p className="row">{props.lorem[4]}</p>
+      {props.lorem.map((line : string) => {return <p className="row">{line}</p>})}
     </body>
     <style jsx>{`
       .hero {
