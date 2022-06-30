@@ -19,7 +19,7 @@ const NewTaskForm = (props: any) => {
     const enteredDesc = descInputRef.current.value
 
     //TODO: Wyslac obiekt
-    props.onAddTask({})
+    props.onAddTask({ title: enteredTitle, desc: enteredDesc })
 
     router.push('/tasks')
   }
