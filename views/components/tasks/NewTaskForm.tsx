@@ -13,7 +13,7 @@ const NewTaskForm = (props: any) => {
     e.preventDefault()
     setSendingTask(true)
 
-    const enteredTitle = titleInputRef.current.value
+    const enteredTitle :any? = titleInputRef.current.value
     const enteredDesc = descInputRef.current.value
 
     //TODO: Wyslac obiekt

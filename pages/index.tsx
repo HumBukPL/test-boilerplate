@@ -19,11 +19,7 @@ const Home = (props: any) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <body>
-      <p className="row">{props.lorem[0]}</p>
-      <p className="row">{props.lorem[1]}</p>
-      <p className="row">{props.lorem[2]}</p>
-      <p className="row">{props.lorem[3]}</p>
-      <p className="row">{props.lorem[4]}</p>
+      {props.lorem.map((line : string) => {return <p className="row">{line}</p>})}
     </body>
     <style jsx>{`
       .hero {
