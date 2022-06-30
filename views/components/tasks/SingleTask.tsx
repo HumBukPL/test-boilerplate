@@ -16,13 +16,13 @@ const SingleTask = (props: any) => {
     <li className={classes.task}>
       <h1>{props.title}</h1>
       <p>{props.desc}</p>
-        <FormControlLabel
-          className={classes.switches}
-          control={
-            <Switch onChange={handleCompletedChange} checked={isCompleted} />
-          }
-          label="Completed"
-        />
+      <FormControlLabel
+        className={classes.switches}
+        control={
+          <Switch onChange={handleCompletedChange} checked={isCompleted} />
+        }
+        label="Completed"
+      />
     </li>
   )
 }

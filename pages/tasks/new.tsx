@@ -1,4 +1,5 @@
 import React from 'react'
+import { gql, useMutation } from '@apollo/client'
 
 import NewTaskForm from '../../views/components/tasks/NewTaskForm'
 import Card from '@views/components/ui/Card'
@@ -6,6 +7,7 @@ import Card from '@views/components/ui/Card'
 const NewTask = () => {
   const addTaskHandler = (obj : object) => {
     //TODO: Wyslac zapytanie do backendu z dodaniem taska
+
   }
 
   return (
