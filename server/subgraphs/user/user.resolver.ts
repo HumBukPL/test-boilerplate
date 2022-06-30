@@ -1,7 +1,7 @@
 import { Arg, Ctx, Mutation, Query, Resolver } from 'type-graphql'
 import UserService from './user.service'
 import User from './user.model'
-import { ObjectId } from 'mongoose'
+import type { ObjectId } from 'mongoose'
 import scalars from '@server/common/scalars'
 
 // @Resolver((_of) => User)
