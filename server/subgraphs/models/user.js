@@ -22,6 +22,15 @@ UserSchema.virtual('tasks', {
   localField: '_id',
   foreignField: 'owner'
 })
+
+UserSchema.methods.toJSON = function() {
+  const user = this
+  const userObj = user.toObject()
+  delete userObj.password
+  
+  return userObj
+}
+
 const User = mongoose.model('User', UserSchema);
 
 export default User;
