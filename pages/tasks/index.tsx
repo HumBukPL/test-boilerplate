@@ -5,9 +5,12 @@ import Card from '@views/components/ui/Card'
 import TasksList from '@views/components/tasks/TasksList'
 
 const Tasks = () => {
-  return <Card>
-    <TasksList />
-  </Card>
+  return (
+    <React.Fragment>
+      <h1>MOJE TASKI</h1>
+      <TasksList />
+    </React.Fragment>
+  )
 }
 
 export default Tasks
