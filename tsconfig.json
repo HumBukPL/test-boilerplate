@@ -84,5 +84,5 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "views/components/LoginForm.jsx"  ]
+, "views/components/LoginForm.jsx", "views/components/RegisterForm.jsx"  ]
 }
