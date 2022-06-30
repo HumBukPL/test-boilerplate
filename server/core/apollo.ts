@@ -12,7 +12,7 @@ import { TypegooseMiddleware } from '@server/serverLib/typegoose-middleware'
 import { buildSchema } from 'type-graphql'
 //////
 
-import schema from "../subgraphs/resolvers/user"
+import schema from "../subgraphs/resolvers/index"
 
 // const { User } = models
 // const schema = makeExecutableSchema({ typeDefs, resolvers })

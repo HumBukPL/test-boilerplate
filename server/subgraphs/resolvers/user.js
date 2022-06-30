@@ -5,7 +5,7 @@ import User from "../models/user"
 const customizationOptions = {};
 const UserTC = composeMongoose(User, customizationOptions);
 
-schemaComposer.Query.addFields({
+const UserQuery = {
   userById: UserTC.mongooseResolvers.findById(),
   userByIds: UserTC.mongooseResolvers.findByIds(),
   userOne: UserTC.mongooseResolvers.findOne(),
@@ -21,9 +21,9 @@ schemaComposer.Query.addFields({
   userCount: UserTC.mongooseResolvers.count(),
   userConnection: UserTC.mongooseResolvers.connection(),
   userPagination: UserTC.mongooseResolvers.pagination(),
-});
+};
 
-schemaComposer.Mutation.addFields({
+const UserMutation = {
   userCreateOne: UserTC.mongooseResolvers.createOne(),
   userCreateMany: UserTC.mongooseResolvers.createMany(),
   userUpdateById: UserTC.mongooseResolvers.updateById(),
@@ -32,7 +32,9 @@ schemaComposer.Mutation.addFields({
   userRemoveById: UserTC.mongooseResolvers.removeById(),
   userRemoveOne: UserTC.mongooseResolvers.removeOne(),
   userRemoveMany: UserTC.mongooseResolvers.removeMany(),
-});
+};
 
-const schema = schemaComposer.buildSchema();
-export default schema;
+export {
+  UserQuery,
+  UserMutation
+};
