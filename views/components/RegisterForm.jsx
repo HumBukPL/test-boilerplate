@@ -61,7 +61,7 @@ const RegisterForm = () => {
       {/* aria-live - dostepnosc dla czytnikow ekranu */}
       <p ref={errRef} className={errMsg ? 'errmsg' : classes.offscreen} aria-live='assertive'>{errMsg}</p>
       <h1>Register</h1>
-      <form className={classes.registerForm}>
+      <form className={classes.formBox}>
         <div className={classes.control}>
           <TextField
             label='Username'

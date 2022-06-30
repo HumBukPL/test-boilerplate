@@ -17,21 +17,21 @@
 .wraper > *{
   padding: 20px;
 }
-.registerForm{
+.formBox{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.registerForm > *{
+.formBox > *{
 padding: 10px;
 display: flex;
 flex-direction: column;
 }
-.registerForm > .control > label{
+.formBox > .control > label{
   text-align: left;
 }
-.registerForm > div > input{
+.formBox > div > input{
   border: 1px solid #303030;
   border-radius: 6px;
   padding: 12px;
@@ -57,4 +57,12 @@ flex-direction: column;
 
 .registerButtonActive{
   background-color: blue;
+}
+
+.container > h1{
+  margin-bottom: 25px;
+}
+
+.control:last-of-type{
+  margin-top: 25px;
 }

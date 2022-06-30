@@ -1,66 +1,96 @@
 import React from 'react'
 import { useRef, useState, useEffect } from 'react'
-import classes from './loginform.module.css'
+import classes from './registerform.module.css'
 import Link from 'next/link'
+import { TextField, Button } from '@mui/material'
 
-const LoginForm = (props) => {
+// Login zaczyna sie od litery
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
+// Mala litera + duza litera + cyfra + znak specjalny
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
-  const loginInputRef = useRef()
-  const passwordInputRef = useRef()
+const LoginForm = () => {
+
+  const userRef = useRef()
+  const errRef = useRef()
 
   const [user, setUser] = useState('')
+  const [validName, setValidName] = useState(false)
+  const [userFocus, setUserFocus] = useState(false)
+
   const [pwd, setPwd] = useState('')
+  const [validPwd, setValidPwd] = useState(false)
+  const [pwdFocus, setPwdFocus] = useState(false)
+
+  const [errMsg, setErrMsg] = useState('')
+  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
-    loginInputRef.current.focus()
+    userRef.current.focus()
   }, [])
 
-  // Do zmiany po napisaniu back endu
-  const submitHandler = (event) => {
-    event.preventDefault()
-    const enteredLogin = loginInputRef.current.value
-    const enteredPassword = passwordInputRef.current.value
+  useEffect(() => {
+    const result = USER_REGEX.test(user)
+    console.log(result)
+    console.log(user)
+    setValidName(result)
+  }, [user])
 
-    const loginData = {
-      login: enteredLogin,
-      password: enteredPassword
-    }
-    props.onLogin(loginData)
-  }
+  useEffect(() => {
+    const result = PWD_REGEX.test(user)
+    console.log(result)
+    console.log(pwd)
+    setValidPwd(true)
+  }, [pwd])
+
+  useEffect(() => {
+    setErrMsg('')
+  }, [user, pwd])
 
   return(
-    <div className={classes.wraper}>
-    <form className={classes.forms} onSubmit={submitHandler}>
-      <h1>Zaloguj się</h1>
-      <div className={classes.control}>
-        <label htmlFor='username'>Login</label>
-        <input 
-          type="text" 
-          required 
-          id='username'
-          onChange={(e) => setUser(e.target.value)}
-          ref={loginInputRef}
-        />
+    <section className={classes.wraper}>
+      <div className={classes.container}>
+        <p ref={errRef} className={errMsg ? 'errmsg' : classes.offscreen} aria-live='assertive'>{errMsg}</p>
+        <h1>Login</h1>
+        <form className={classes.formBox}>
+          <div className={classes.control}>
+            <TextField 
+              label='Username'
+              type='text'
+              id='username'
+              ref={userRef}
+              autocomplete='off'
+              onChange={(e) => setUser(e.target.value)}
+              required
+              aria-invalid={validName ? 'false' : 'true'}
+              onFocus={() => setUserFocus(true)}
+              onBlur={() => setUserFocus(false)}
+            />
+          </div>
+          <div className={classes.control}>
+            <TextField 
+              label='Password'
+              type='password'
+              id='password'
+              onChange={(e) => setPwd(e.target.value)}
+              required
+              aria-invalid={validPwd ? 'false' : 'true'}
+              onFocus={() => setPwdFocus(true)}
+              onBlur={() => setPwdFocus(false)}
+            />
+          </div>
+          <div className={classes.control}>
+            <Button variant='outlined' disabled={!validName || !validPwd ? true : false}>
+              Sign in
+            </Button>
+          </div>
+          <div className={classes.control}>
+            <span>Need account?</span>
+            <Link href="/auth/register"><a>Sign in</a></Link>
+          </div>
+        </form>
       </div>
-      <div className={classes.control}>
-        <label htmlFor='password'>Hasło</label>
-        <input 
-          type="password" 
-          required 
-          id='password'
-          onChange={(e) => setPwd(e.target.value)}
-          ref={passwordInputRef}
-        />
-      </div>
-      <div className={classes.control}>
-        <button>Zaloguj</button>
-      </div>
-      <div className={classes.control}>
-        <span>Nie masz konta?</span>
-        <Link href="/auth/register"><a className={classes.link}>Zarejestruj się</a></Link>
-      </div>
-    </form>
-    </div>
+    </section>
   )
 }
 
