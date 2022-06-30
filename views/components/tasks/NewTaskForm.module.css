@@ -1,42 +1,22 @@
-.save__btn{
-  background-color: red;
-  border-radius: 1.4em;
-  font-size: large;
-  cursor: pointer;
-  padding: 1.2em;
-}
-
-.save__btn:hover{
-  background-color: brown;
-}
-
-.field label{
-  vertical-align: top;
-}
-
-.title input{
-  background-color: white;
-  height: 1.5em;
-  width: 80%;
-  border-radius: 15px; 
-  padding-left: 1.5em;
-  padding-right: 1.5em;
+.pageTitle{
+  text-align: center;
+  margin-top: 2em;
 }
 
 .newtask{
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50em;
 }
 
 .form{
   text-align: center;
-  background-color: bisque;
+  background-color: #b6b0b0;
   padding: 5em;
   border-radius: 15px;
   line-height: 3em;
   width: 50em;
+  margin: 2em;
 }
 
 .ta{
@@ -47,4 +27,8 @@
   width: 80%;
   padding-left: 1.5em;
   padding-right: 1.5em;
+}
+
+.field{
+  margin: 1em 0;
 }
