@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import classes from './loginform.module.css'
 import Link from 'next/link'
 
@@ -9,6 +9,10 @@ const RegisterForm = (props) => {
   const passwordInputRef = useRef()
   const passwordRepeatInputRef = useRef()
   const emailInputRef = useRef()
+
+  useEffect(() => {
+    loginInputRef.current.focus()
+  }, [])
 
   const submitHandler = (event) => {
     event.preventDefault()

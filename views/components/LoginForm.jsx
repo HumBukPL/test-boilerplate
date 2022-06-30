@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import classes from './loginform.module.css'
 import Link from 'next/link'
 
@@ -7,6 +7,13 @@ const LoginForm = (props) => {
 
   const loginInputRef = useRef()
   const passwordInputRef = useRef()
+
+  const [user, setUser] = useState('')
+  const [pwd, setPwd] = useState('')
+
+  useEffect(() => {
+    loginInputRef.current.focus()
+  }, [])
 
   const submitHandler = (event) => {
     event.preventDefault()
@@ -29,7 +36,8 @@ const LoginForm = (props) => {
         <input 
           type="text" 
           required 
-          id='username' 
+          id='username'
+          onChange={(e) => setUser(e.target.value)}
           ref={loginInputRef}
         />
       </div>
@@ -38,7 +46,8 @@ const LoginForm = (props) => {
         <input 
           type="password" 
           required 
-          id='password' 
+          id='password'
+          onChange={(e) => setPwd(e.target.value)}
           ref={passwordInputRef}
         />
       </div>
