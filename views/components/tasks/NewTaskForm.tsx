@@ -18,7 +18,6 @@ const NewTaskForm = (props: any) => {
     const enteredTitle = titleInputRef.current.value
     const enteredDesc = descInputRef.current.value
 
-    //TODO: Wyslac obiekt
     props.onAddTask({ title: enteredTitle, desc: enteredDesc })
 
     router.push('/tasks')
@@ -37,7 +36,7 @@ const NewTaskForm = (props: any) => {
               id="outlined-basic"
               label="Title"
               variant="outlined"
-              ref={titleInputRef}
+              inputRef={titleInputRef}
               required
             />
           </div>
@@ -49,13 +48,13 @@ const NewTaskForm = (props: any) => {
               id="outlined-basic"
               label="Description"
               variant="outlined"
-              ref={descInputRef}
+              inputRef={descInputRef}
               rows="10"
               required
             />
           </div>
           <div className={classes.field}>
-            <ButtonMUI variant="contained" color="primary">
+            <ButtonMUI variant="contained" color="primary" type="submit">
               SAVE TASK
             </ButtonMUI>
           </div>
