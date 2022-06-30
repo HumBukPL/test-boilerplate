@@ -1,6 +1,7 @@
 import { composeMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
-
+import { moongose } from 'mongoose'
+import { User } from '../models/user'
 
 import User from "../models/user"
 const customizationOptions = {};
@@ -26,6 +27,28 @@ UserTC.addResolver({
     return 
   }
 })
+// Testing customresolves
+UserTC.addResolver({
+  name: 'CreateTokenAndSave',
+  args : { record: 'CreateUserInput'},
+  type: UserTC,
+  resolve: async({source, args}) => {
+    // 1. Saving and fetching id user data
+    // 2. making a jwt token from id
+    // 3. transfer token to client
+    console.log(args)
+    console.log(source)
+
+    const user = new User({
+      login: args.login,
+      password: args.password
+    })
+    await user.save()
+    // jwt.generate(user.id)
+    //return jwt
+  }
+})
+
 const testAuth = async(resolve, source, args, context, info) => {
   console.log('From middleware')
 
