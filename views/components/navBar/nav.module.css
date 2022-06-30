@@ -1,0 +1,21 @@
+.link{
+  font-size: 1.2em;
+  padding: 1.2em;
+}
+
+.link:hover{
+  background: rgb(61, 61, 61);
+}
+
+.navbar{
+  background-color: #887f7f;
+  overflow: hidden;
+}
+
+.active{
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 1.2em;
+  background: rgb(61, 61, 61);
+  color:whitesmoke;
+}

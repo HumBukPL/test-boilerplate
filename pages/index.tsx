@@ -1,7 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-import Nav from '@views/components/Nav'
-import Footer from '@views/components/Footer'
 
 export async function getServerSideProps(context: any) {
   const res: any = await fetch(
