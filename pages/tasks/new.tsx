@@ -20,8 +20,6 @@ const NewTask = () => {
   const [createNewTask] = useMutation(CREATE_TASK_MUTATION);
 
   const addTaskHandler = (obj : object) => {
-    console.log(obj)
-    //TODO: Wyslac zapytanie do backendu z dodaniem taska
     createNewTask({variables: {record:{title:obj.title, description:obj.desc}}})
   }
 
