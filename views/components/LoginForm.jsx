@@ -15,6 +15,7 @@ const LoginForm = (props) => {
     loginInputRef.current.focus()
   }, [])
 
+  // Do zmiany po napisaniu back endu
   const submitHandler = (event) => {
     event.preventDefault()
     const enteredLogin = loginInputRef.current.value

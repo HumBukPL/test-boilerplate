@@ -1,0 +1,60 @@
+.wraper{
+  width: 30vw;
+  height: 60vh;
+  background-color: #eee;
+  border: 1px solid #303030;
+  border-radius: 13px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 0%);
+  margin: 50px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.wraper > *{
+  padding: 20px;
+}
+.registerForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.registerForm > *{
+padding: 10px;
+display: flex;
+flex-direction: column;
+}
+.registerForm > .control > label{
+  text-align: left;
+}
+.registerForm > div > input{
+  border: 1px solid #303030;
+  border-radius: 6px;
+  padding: 12px;
+}
+.control{
+  width: 70%;
+}
+.instructions{
+  background-color: #dfdfdf;
+  border-radius: 10px;
+  margin: 10px 10px 0 10px;
+  padding: 5px;
+}
+.offscreen{
+  display: none;
+}
+
+.registerButton{
+  background-color: #aaa;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.registerButtonActive{
+  background-color: blue;
+}

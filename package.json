@@ -35,6 +35,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.5",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.8.6",
     "@typegoose/auto-increment": "^1.0.0",
     "@typegoose/typegoose": "^9.1.0",
     "apollo-server": "^2.25.2",
