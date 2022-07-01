@@ -19,7 +19,13 @@ const UserSchema = new mongoose.Schema({
   {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    minlength: 6,
+    validate(value) {
+      if(value.toLowerCase().includes('password')) {
+        throw new Error('Try to enter better password')
+      }
+    }
   },
   token: String
 });

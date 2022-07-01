@@ -15,15 +15,27 @@ const DELETE_TASK_MUTATION = gql`
   }
 `
 
-const SingleTask = (props: any) => {
+const COMPLETE_TASK_MUTATION = gql`
+mutation TaskUpdateById($id: MongoID!, $record: UpdateByIdTaskInput!) {
+  taskUpdateById(_id: $id, record: $record) {
+    record {
+      _id
+      completed
+    }
+  }
+}`
+
+const SingleTask = (props) => {
   const [isCompleted, setIsCompleted] = useState(props.completed)
   const [deleteTask] = useMutation(DELETE_TASK_MUTATION)
+  const [completeTask] = useMutation(COMPLETE_TASK_MUTATION)
 
   const handleCompletedChange = (e) => {
     e.preventDefault()
 
     setIsCompleted(!isCompleted)
-    //TODO: przeslac info do bazy danych
+    //TODO: change state in database
+    completeTask({ variables: { id: props.id, record: {completed: !isCompleted}}})
   }
 
   const deleteButtonHandler = (e) => {

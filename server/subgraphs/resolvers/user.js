@@ -1,6 +1,7 @@
 import { composeMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
 import { moongose } from 'mongoose'
+import { jwt } from 'jsonwebtoken'
 import User from "../models/user"
 
 const customizationOptions = {};
@@ -45,15 +46,6 @@ UserTC.addResolver({
     return user
   }
 })
-
-const testAuth = async(resolve, source, args, context, info) => {
-  console.log('From middleware')
-
-  console.log('source: ' + source)
-  console.log('args: ' + args)
-  console.log('info: ' + info)
-  return resolve(source, args, context, info)
-}
 
 const UserQuery = {
   userById: UserTC.mongooseResolvers.findById(),
