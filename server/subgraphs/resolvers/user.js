@@ -18,35 +18,39 @@ schemaComposer.createInputTC({
   }
 });
 
-UserTC.addResolver({
-  name: 'test',
-  args: { record: 'CreateUserInput' },
-  type: UserTC,
-  resolve: async ({source, args}) =>
+schemaComposer.createInputTC({
+  name: 'LoginUserInput',
+  fields:
   {
-    console.log(args)
-    return 
+    login: 'String',
+    password: 'String'
   }
-})
+});
 
-// Testing customresolves
+
 UserTC.addResolver({
   name: 'Register',
   args : { record: 'CreateUserInput'},
   type: UserTC,
-  resolve: async({source, args}) => {
-    // 1. Saving and fetching id user data
-    // 2. making a jwt token from id
-    // 3. transfer token to client
-    console.log(args)
-    console.log(source)
-
+  resolve: async ({ source, args }) => {
     const user = new User(args.record);
     await user.save();
-    user.generateAuthToken();
+    await user.generateAuthToken();
     return user
   }
-})
+});
+
+UserTC.addResolver({
+  name: 'Login',
+  args: { record: 'LoginUserInput' },
+  type: UserTC,
+  resolve: async ({ source, args }) =>
+  {
+    const user = await User.findByCredentials(args.record);
+    await user.generateAuthToken();
+    return user;
+  }
+});
 
 const UserQuery = {
   userById: UserTC.mongooseResolvers.findById(),
@@ -68,6 +72,7 @@ const UserQuery = {
 
 const UserMutation = {
   userRegister: UserTC.getResolver('Register'),
+  userLogin: UserTC.getResolver('Login'),
   userUpdateById: UserTC.mongooseResolvers.updateById(),
   userRemoveById: UserTC.mongooseResolvers.removeById(),
   userRemoveOne: UserTC.mongooseResolvers.removeOne(),

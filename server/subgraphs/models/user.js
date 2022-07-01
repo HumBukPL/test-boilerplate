@@ -43,6 +43,16 @@ UserSchema.methods.generateAuthToken = async function () {
   this.activeToken = jwt.sign({ _id: this._id.toString() }, SECRET_KEY);
 }
 
+UserSchema.statics.findByCredentials = async ({ login, password }) => {
+  const user = await User.findOne({ login });
+  if (!user)
+      throw new Error('Unable to login');
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) 
+      throw new Error('Unable to login');
+  return user;
+}
+
 UserSchema.virtual('tasks', {
   ref: 'Task',
   localField: '_id',
