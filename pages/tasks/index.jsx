@@ -1,5 +1,5 @@
 import React from 'react'
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useLazyQuery } from '@apollo/client'
 
 import TasksList from '@views/components/tasks/TasksList'
 
@@ -17,18 +17,18 @@ const GET_ALL_TASKS = gql`
   }
 `
 
-// export async function getServerSideProps(context: any) {
-
-//   console.log(data)
+// export async function getServerSideProps(context) {
+//   const tasks = getTasks();
+//   console.log(tasks)
 //   return({props:{}})
 // }
 
-const Tasks = (props: any) => {
-  const { data, loading, error } = useQuery(GET_ALL_TASKS, { ssr: true })
-  console.log(data)
-  console.log(loading)
-  console.log(error)
+const Tasks = (props) => {
+  const { loading, error, data } = useQuery(GET_ALL_TASKS, {
+    fetchPolicy: 'network-only',
+  })
 
+  if (error) return <h1>ERROR</h1>
   if (!loading) {
     return (
       <React.Fragment>

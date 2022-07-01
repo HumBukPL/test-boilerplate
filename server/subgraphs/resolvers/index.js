@@ -1,9 +1,7 @@
-import { SchemaComposer } from 'graphql-compose'
 import { UserQuery, UserMutation } from  './user'
 import { TaskQuery, TaskMutation } from './task'
+import { schemaComposer } from 'graphql-compose';
 
-const schemaComposer = new SchemaComposer()
-console.log(schemaComposer)
 schemaComposer.Query.addFields({
   ...UserQuery,
   ...TaskQuery

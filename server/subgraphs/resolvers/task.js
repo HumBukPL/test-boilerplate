@@ -1,10 +1,30 @@
 import { composeMongoose } from 'graphql-compose-mongoose'
 import { schemaComposer } from 'graphql-compose'
+import jwt from "jsonwebtoken"
 
 import Task from '../models/task'
+import User from '../models/user'
+import next from 'next'
+import { contentSecurityPolicy } from 'helmet'
 
 const customizationOptions = {}
 const TaskTC = composeMongoose(Task, customizationOptions)
+
+const auth = async(resolve, source, args, context, info) => {
+  try {
+  const token = context.req.headers.authorization.replace('Bearer ', '')
+  const decoded = jwt.verify(token, process.env.SECRET_KEY)
+  console.log(decoded._id)
+  const user = await User.findOne({ _id: decoded._id})
+  console.log(user)
+  if(!user) {
+    throw new Error('User not found')
+  }
+  return resolve(source, args, context, info)
+  } catch {
+    throw new Error('Please authenticate')
+  }
+}
 
 const TaskQuery = {
   taskById: TaskTC.mongooseResolvers.findById(),
@@ -25,7 +45,7 @@ const TaskQuery = {
 }
 
 const TaskMutation = {
-  taskCreateOne: TaskTC.mongooseResolvers.createOne(),
+  taskCreateOne: TaskTC.mongooseResolvers.createOne().withMiddlewares([auth]),
   taskCreateMany: TaskTC.mongooseResolvers.createMany(),
   taskUpdateById: TaskTC.mongooseResolvers.updateById(),
   taskUpdateOne: TaskTC.mongooseResolvers.updateOne(),

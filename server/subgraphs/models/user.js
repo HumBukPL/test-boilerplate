@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
+
+import Task from './task'
+
 
 const { SECRET_KEY } = process.env
-import Task from './task'
-import Task from './task'
-import bcrypt from "bcrypt";
 
 const UserSchema = new mongoose.Schema({
   login:
@@ -18,10 +19,28 @@ const UserSchema = new mongoose.Schema({
   {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    minlength: 6,
+    validate(value) {
+      if(value.toLowerCase().includes('password')) {
+        throw new Error('Try to enter better password')
+      }
+    }
   },
-
+  token: String
+  // tokens: [{
+  //   token: {
+  //     type: String,
+  //     required:false
+  //   }
+  // }]
 });
+
+UserSchema.methods.generateAuthToken = async function () 
+{
+  this.token = jwt.sign({ _id: this._id.toString() }, SECRET_KEY);
+}
+
 UserSchema.virtual('tasks', {
   ref: 'Task',
   localField: '_id',
