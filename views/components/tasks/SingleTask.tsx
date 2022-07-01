@@ -23,7 +23,7 @@ const SingleTask = (props: any) => {
     e.preventDefault()
 
     setIsCompleted(!isCompleted)
-    //TODO: przeslac info do bazy danych
+    //TODO: change state in database
   }
 
   const deleteButtonHandler = (e) => {

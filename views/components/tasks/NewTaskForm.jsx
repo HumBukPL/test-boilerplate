@@ -1,25 +1,21 @@
 import React from 'react'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
+import { useForm } from "react-hook-form";
 import router, { useRouter } from 'next/router'
 import ButtonMUI from '@mui/material/Button'
 import { TextField } from '@mui/material'
 
 import classes from './NewTaskForm.module.css'
 
-const NewTaskForm = (props: any) => {
+const NewTaskForm = (props) => {
   const [sendingTask, setSendingTask] = useState(false)
-  const titleInputRef = useRef()
-  const descInputRef = useRef()
+  const { register, handleSubmit } = useForm();
 
-  const onSubmitForm = (e: any) => {
-    e.preventDefault()
+  const onSubmitForm = (data) => {
     setSendingTask(true)
 
-    const enteredTitle = titleInputRef.current.value
-    const enteredDesc = descInputRef.current.value
-
-    props.onAddTask({ title: enteredTitle, desc: enteredDesc })
-
+    props.onAddTask(data);
+    setSendingTask(false);
     // router.prefetch("/tasks")
     // router.push('/tasks')
   }
@@ -29,27 +25,27 @@ const NewTaskForm = (props: any) => {
     <React.Fragment>
       <h1 className={classes.pageTitle}>Add new task</h1>
       <div className={classes.newtask}>
-        <form className={classes.form} onSubmit={onSubmitForm}>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmitForm)}>
           <div className={classes.title}>
             <TextField
+              {...register("title")}
               className={classes.field}
               fullWidth
               id="outlined-basic"
               label="Title"
               variant="outlined"
-              inputRef={titleInputRef}
               required
             />
           </div>
           <div className={classes.field}>
             <TextField
+              {...register("desc")}
               className={classes.field}
               multiline
               fullWidth
               id="outlined-basic"
               label="Description"
               variant="outlined"
-              inputRef={descInputRef}
               rows="10"
               required
             />
