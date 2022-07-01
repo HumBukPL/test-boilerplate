@@ -2,12 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "es6",
-      "es7",
-      "esnext",
-      "dom"
-    ],
+    "lib": ["es6", "es7", "esnext", "dom"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -25,47 +20,20 @@
     "emitDecoratorMetadata": true,
     "sourceMap": true,
     "baseUrl": "./",
-    "typeRoots": [
-      "node_modules/@types",
-      "@types"
-    ],
+    "typeRoots": ["node_modules/@types", "@types"],
     "paths": {
-      "@types/*": [
-        "./@types/*"
-      ],
-      "@constants/*": [
-        "./constants/*"
-      ],
-      "@graphql/*": [
-        "./graphql/*"
-      ],
-      "@views/*": [
-        "./views/*"
-      ],
-      "@viewsUi/*": [
-        "./views/ui/*"
-      ],
-      "@viewsComp/*": [
-        "./views/components/*"
-      ],
-      "@viewsLay/*": [
-        "./views/layouts/*"
-      ],
-      "@styles/*": [
-        "./styles/*"
-      ],
-      "@server/*": [
-        "./server/*"
-      ],
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@assets/*": [
-        "./assets/*"
-      ],
-      "@static/*": [
-        "./public/static/*"
-      ]
+      "@types/*": ["./@types/*"],
+      "@constants/*": ["./constants/*"],
+      "@graphql/*": ["./graphql/*"],
+      "@views/*": ["./views/*"],
+      "@viewsUi/*": ["./views/ui/*"],
+      "@viewsComp/*": ["./views/components/*"],
+      "@viewsLay/*": ["./views/layouts/*"],
+      "@styles/*": ["./styles/*"],
+      "@server/*": ["./server/*"],
+      "@lib/*": ["./lib/*"],
+      "@assets/*": ["./assets/*"],
+      "@static/*": ["./public/static/*"]
     },
     "incremental": true
   },
@@ -83,6 +51,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "views/components/LoginForm.jsx", "views/components/RegisterForm.jsx"  ]
+    "**/*.tsx",
+    "views/components/LoginForm.jsx",
+    "views/components/RegisterForm.tsx"
+  ]
 }
