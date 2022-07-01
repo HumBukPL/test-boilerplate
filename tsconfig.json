@@ -52,6 +52,7 @@
     "next-env.d.ts",
     "**/*.ts",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "**/*.tsx",
     "views/components/LoginForm.jsx",
     "views/components/RegisterForm.tsx"
@@ -60,4 +61,7 @@
     "**/*.tsx"
 , "views/components/LoginForm.jsx", "views/components/RegisterForm.jsx", "views/components/tasks/SingleTask.jsx", "views/components/tasks/TasksList.jsx", "views/components/Footer.jsx", "views/components/navBar/NavStatic.jsx", "views/components/navBar/NavLogin.jsx", "views/components/navBar/Nav.jsx", "pages/tasks/new.jsx", "pages/tasks/index.jsx"  ]
 >>>>>>> 05f90db1ccde634227f48f67aa031476c5e00b15
+=======
+    "**/*.tsx"]
+>>>>>>> f15ec0a (Fixed sticky user with material ui elements)
 }
