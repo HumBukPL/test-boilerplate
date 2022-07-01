@@ -27,12 +27,13 @@ const UserSchema = new mongoose.Schema({
       }
     }
   },
-  tokens: [{
-    token: {
-      type: String,
-      required:true
-    }
-  }]
+  token: String
+  // tokens: [{
+  //   token: {
+  //     type: String,
+  //     required:false
+  //   }
+  // }]
 });
 
 UserSchema.methods.generateAuthToken = async function () 
