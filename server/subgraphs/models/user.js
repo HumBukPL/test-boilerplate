@@ -31,17 +31,16 @@ const UserSchema = new mongoose.Schema({
   {
     type: String
   },
-  nonValidTokens: [{
-    token: {
-      type: String,
-      required:true
-    }
-  }]
+  // nonValidTokens: [{   zostanie dodane potem
+  //   token: {
+  //     type: String,
+  //     required:true
+  //   }
+  // }]
 });
 
-UserSchema.methods.generateAuthToken = async function () 
-{
-  this.token = jwt.sign({ _id: this._id.toString() }, SECRET_KEY);
+UserSchema.methods.generateAuthToken = async function () {
+  this.activeToken = jwt.sign({ _id: this._id.toString() }, SECRET_KEY);
 }
 
 UserSchema.virtual('tasks', {
