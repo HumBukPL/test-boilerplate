@@ -1,6 +1,7 @@
 import { composeMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
 import { moongose } from 'mongoose'
+import { jwt } from 'jsonwebtoken'
 
 
 import User from "../models/user"
@@ -49,15 +50,6 @@ UserTC.addResolver({
   }
 })
 
-const testAuth = async(resolve, source, args, context, info) => {
-  console.log('From middleware')
-
-  console.log('source: ' + source)
-  console.log('args: ' + args)
-  console.log('info: ' + info)
-  return resolve(source, args, context, info)
-}
-
 const UserQuery = {
   userById: UserTC.mongooseResolvers.findById(),
   userByIds: UserTC.mongooseResolvers.findByIds(),
@@ -77,7 +69,7 @@ const UserQuery = {
 };
 
 const UserMutation = {
-  userCreateOne: UserTC.getResolver('test'),
+  userCreateOne: UserTC.mongooseResolvers.createOne(),
   userCreateMany: UserTC.mongooseResolvers.createMany(),
   userUpdateById: UserTC.mongooseResolvers.updateById(),
   userUpdateOne: UserTC.mongooseResolvers.updateOne(),

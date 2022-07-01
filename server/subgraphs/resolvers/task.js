@@ -1,5 +1,6 @@
 import { composeMongoose } from 'graphql-compose-mongoose'
 import { schemaComposer } from 'graphql-compose'
+import { jwt } from 'jsonwebtoken'
 
 import Task from '../models/task'
 import next from 'next'
@@ -7,14 +8,18 @@ import next from 'next'
 const customizationOptions = {}
 const TaskTC = composeMongoose(Task, customizationOptions)
 
-const testAuth = async(resolve, source, args, context, info) => {
+const auth = async(resolve, source, args, context, info) => {
   console.log('From middleware')
+  const token = context.req.headers.authorization.replace('Bearer ', '')
 
-  console.log('source: ' + source)
-  console.log('args: ' + args)
-  console.log('info: ' + info)
+  try {
+    jwt.verify(token, process.env.JWT_STR)
+    }
+    catch {
+      throw new Error('Please authenticate')
+    }
   return resolve(source, args, context, info)
-}
+  }
 
 const TaskQuery = {
   taskById: TaskTC.mongooseResolvers.findById(),
@@ -35,7 +40,7 @@ const TaskQuery = {
 }
 
 const TaskMutation = {
-  taskCreateOne: TaskTC.mongooseResolvers.createOne().withMiddlewares([testAuth]),
+  taskCreateOne: TaskTC.mongooseResolvers.createOne(),
   taskCreateMany: TaskTC.mongooseResolvers.createMany(),
   taskUpdateById: TaskTC.mongooseResolvers.updateById(),
   taskUpdateOne: TaskTC.mongooseResolvers.updateOne(),
