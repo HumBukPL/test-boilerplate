@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FormControlLabel, FormGroup, Switch, Button } from '@mui/material'
 import { gql, useMutation } from '@apollo/client'
-import router from 'next/router'
+import Snackbar from '@mui/material/Snackbar'
 
 import classes from './SingleTask.module.scss'
 
@@ -16,32 +16,43 @@ const DELETE_TASK_MUTATION = gql`
 `
 
 const COMPLETE_TASK_MUTATION = gql`
-mutation TaskUpdateById($id: MongoID!, $record: UpdateByIdTaskInput!) {
-  taskUpdateById(_id: $id, record: $record) {
-    record {
-      _id
-      completed
+  mutation TaskUpdateById($id: MongoID!, $record: UpdateByIdTaskInput!) {
+    taskUpdateById(_id: $id, record: $record) {
+      record {
+        _id
+        completed
+      }
     }
   }
-}`
+`
 
 const SingleTask = (props) => {
   const [isCompleted, setIsCompleted] = useState(props.object.completed)
-  const [deleteTask] = useMutation(DELETE_TASK_MUTATION)
   const [completeTask] = useMutation(COMPLETE_TASK_MUTATION)
+  const [openChangedSnackbar, setOpenChangedSnackbar] = React.useState(false)
 
   const handleCompletedChange = (e) => {
     e.preventDefault()
 
     setIsCompleted(!isCompleted)
-    completeTask({ variables: { id: props.object.id, record: {completed: !isCompleted}}})
+    completeTask({
+      variables: { id: props.object.id, record: { completed: !isCompleted } },
+    })
+    setOpenChangedSnackbar(true)
   }
 
   const deleteButtonHandler = (e) => {
     e.preventDefault()
     //TODO: refetchQueries
-    props.onDelete({ variables: { id: props.object.id }})
+    props.onDelete({ variables: { id: props.object.id } })
     //deleteTask({ variables: { id: props.object.id }})
+  }
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpenChangedSnackbar(false)
   }
 
   return (
@@ -58,6 +69,12 @@ const SingleTask = (props) => {
         <Button variant="outlined" color="error" onClick={deleteButtonHandler}>
           DELETE TASK
         </Button>
+        <Snackbar
+          autoHideDuration={6000}
+          open={openChangedSnackbar}
+          message="Changed completion state"
+          close={handleCloseSnackbar}
+        />
       </div>
     </li>
   )
