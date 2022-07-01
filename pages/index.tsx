@@ -5,8 +5,10 @@ export async function getServerSideProps(context: any) {
   const res: any = await fetch(
     'https://baconipsum.com/api/?type=meat-and-filler'
   )
+  if (res.size === 0) {
+    return { props: { lorem: ['Failed to fetch lorem ipsum', ':('] } }
+  }
   const data: any = await res.json()
-
   return { props: { lorem: data } }
 }
 
@@ -17,7 +19,9 @@ const Home = (props: any) => (
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <body>
-      {props.lorem.map((line : string) => {return <p className="row">{line}</p>})}
+      {props.lorem.map((line: string) => {
+        return <p className="row">{line}</p>
+      })}
     </body>
     <style jsx>{`
       .hero {
