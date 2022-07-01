@@ -19,7 +19,7 @@ mutation TaskCreateOne($record: CreateOneTaskInput!) {
 const NewTask = () => {
   const [createNewTask] = useMutation(CREATE_TASK_MUTATION);
 
-  const addTaskHandler = (obj : object) => {
+  const addTaskHandler = (obj) => {
     createNewTask({variables: {record:{title:obj.title, description:obj.desc}}})
   }
 

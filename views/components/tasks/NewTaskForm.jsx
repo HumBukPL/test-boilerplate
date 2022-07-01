@@ -5,7 +5,7 @@ import router, { useRouter } from 'next/router'
 import ButtonMUI from '@mui/material/Button'
 import { TextField } from '@mui/material'
 
-import classes from './NewTaskForm.module.css'
+import classes from './NewTaskForm.module.scss'
 
 const NewTaskForm = (props) => {
   const [sendingTask, setSendingTask] = useState(false)

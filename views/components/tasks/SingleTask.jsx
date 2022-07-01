@@ -15,7 +15,7 @@ const DELETE_TASK_MUTATION = gql`
   }
 `
 
-const SingleTask = (props: any) => {
+const SingleTask = (props) => {
   const [isCompleted, setIsCompleted] = useState(props.completed)
   const [deleteTask] = useMutation(DELETE_TASK_MUTATION)
 
