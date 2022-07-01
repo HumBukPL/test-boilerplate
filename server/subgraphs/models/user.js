@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema({
       }
     }
   },
+  active_token:
+  {
+    type: String
+  },
   tokens: [{
     token: {
       type: String,
