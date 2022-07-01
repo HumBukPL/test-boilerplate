@@ -8523,11 +8523,7 @@
     "object-assign" "^4.1.1"
     "scheduler" "^0.20.2"
 
-<<<<<<< HEAD
 "react-hook-form@^7.0.0", "react-hook-form@^7.33.0":
-=======
-"react-hook-form@^7.33.0":
->>>>>>> 05f90db1ccde634227f48f67aa031476c5e00b15
   "integrity" "sha512-h8XoeUHQs1Snx1s/sSvM+eVTSKkWQt8TcrbL+3/Rt5gugxpy4ueL5ZZkubffyNpUyyTz0qM0kwOi2c+JgGTjLA=="
   "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.33.0.tgz"
   "version" "7.33.0"
