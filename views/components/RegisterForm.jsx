@@ -72,7 +72,9 @@ const RegisterForm = () => {
       // ToDo
       // Login and redirect to home page
       setSuccess(true)
-      console.log(result)
+      const token = result.data.userRegister.activeToken
+      console.log(token)
+      sessionStorage.setItem('token', JSON.stringify(token))
     }
   }
 
