@@ -9,7 +9,7 @@
 
 .navbar{
   background-color: #b6b0b0;
-  overflow: hidden;
+  overflow: auto;
   position: sticky;
   top: 0;
 }
@@ -20,4 +20,10 @@
   padding: 1.2em;
   background: rgb(61, 61, 61);
   color:whitesmoke;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
