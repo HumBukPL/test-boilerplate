@@ -48,13 +48,5 @@
     "coverage",
     "test/*"
   ],
-<<<<<<< HEAD
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
-=======
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
->>>>>>> 0bf8be150d8a0f1309ab317b0ff56c3a542c30ae
 }
