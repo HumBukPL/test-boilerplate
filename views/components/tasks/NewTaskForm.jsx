@@ -1,9 +1,7 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form";
 import router, { useRouter } from 'next/router'
-import ButtonMUI from '@mui/material/Button'
-import { TextField } from '@mui/material'
+import { TextField, Button } from '@mui/material'
 
 import classes from './NewTaskForm.module.scss'
 
@@ -51,9 +49,9 @@ const NewTaskForm = (props) => {
             />
           </div>
           <div className={classes.field}>
-            <ButtonMUI variant="contained" color="primary" type="submit">
+            <Button variant="contained" color="primary" type="submit">
               SAVE TASK
-            </ButtonMUI>
+            </Button>
           </div>
         </form>
       </div>

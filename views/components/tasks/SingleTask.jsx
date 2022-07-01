@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FormControlLabel, FormGroup, Switch, Button } from '@mui/material'
 import { gql, useMutation } from '@apollo/client'
-import Snackbar from '@mui/material/Snackbar'
+import { Snackbar } from '@mui/material'
 
 import classes from './SingleTask.module.scss'
 
