@@ -1,9 +1,10 @@
 import { composeMongoose } from 'graphql-compose-mongoose'
 import { schemaComposer } from 'graphql-compose'
-import { jwt } from 'jsonwebtoken'
+import jwt from "jsonwebtoken"
 
 import Task from '../models/task'
 import next from 'next'
+import { contentSecurityPolicy } from 'helmet'
 
 const customizationOptions = {}
 const TaskTC = composeMongoose(Task, customizationOptions)
@@ -11,13 +12,14 @@ const TaskTC = composeMongoose(Task, customizationOptions)
 const auth = async(resolve, source, args, context, info) => {
   console.log('From middleware')
   const token = context.req.headers.authorization.replace('Bearer ', '')
-
+  console.log(token)
+  console.log(process.env.SECRET_KEY)
   try {
-    jwt.verify(token, process.env.JWT_STR)
-    }
-    catch {
-      throw new Error('Please authenticate')
-    }
+  jwt.verify(token, process.env.SECRET_KEY)
+  }
+  catch {
+    throw new Error('Please authenticate')
+  }
   return resolve(source, args, context, info)
   }
 
@@ -40,7 +42,7 @@ const TaskQuery = {
 }
 
 const TaskMutation = {
-  taskCreateOne: TaskTC.mongooseResolvers.createOne(),
+  taskCreateOne: TaskTC.mongooseResolvers.createOne().withMiddlewares([auth]),
   taskCreateMany: TaskTC.mongooseResolvers.createMany(),
   taskUpdateById: TaskTC.mongooseResolvers.updateById(),
   taskUpdateOne: TaskTC.mongooseResolvers.updateOne(),
