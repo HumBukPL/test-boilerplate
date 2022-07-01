@@ -25,9 +25,6 @@ const GET_ALL_TASKS = gql`
 
 const Tasks = (props) => {
   const { data, loading, error } = useQuery(GET_ALL_TASKS, { ssr: true })
-  console.log(data)
-  console.log(loading)
-  console.log(error)
 
   if (!loading) {
     return (
