@@ -38,13 +38,27 @@ TaskTC.addResolver({
     await task.save()
     return task
   }
-})
+});
+
+TaskTC.addResolver({
+  name: 'findMyTasks',
+  type: '[Task!]!',
+  resolve: async ({ context }) =>
+  {
+    const token = context.req.headers.authorization.replace('Bearer ', '');
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const user = await User.findById(decoded);
+    await user.populate('tasks');
+    console.log(user.tasks);
+    return user.tasks;
+  }
+});
 
 const TaskQuery = {
   taskById: TaskTC.mongooseResolvers.findById(),
   taskByIds: TaskTC.mongooseResolvers.findByIds(),
   taskOne: TaskTC.mongooseResolvers.findOne(),
-  taskMany: TaskTC.mongooseResolvers.findMany(),
+  taskMany: TaskTC.getResolver('findMyTasks').withMiddlewares([auth]),
   taskDataLoader: TaskTC.mongooseResolvers.dataLoader(),
   taskDataLoaderMany: TaskTC.mongooseResolvers.dataLoaderMany(),
   taskByIdLean: TaskTC.mongooseResolvers.findById({ lean: true }),
