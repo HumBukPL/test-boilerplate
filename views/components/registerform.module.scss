@@ -1,5 +1,5 @@
 .form {
-  .grid_container {
+  .gridContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,7 +7,7 @@
     min-height: 50vh;
     min-width: 70vw;
 
-    .grid_item {
+    .gridItem {
       display: flex;
       justify-content: center;
       align-content: center;
@@ -15,21 +15,20 @@
       width: 50%;
       padding: 1vw;
 
-      .text_input {
+      .textInput {
         width: 100%;
       }
 
-      p.error_msg {
+      p.errorMsg {
         color: red;
         margin: 10px 0 0 0;
       }
 
-      .button_submit {
+      .buttonSubmit {
         width: 100%;
       }
     }
-
-    .grid_item_last {
+    .gridItem:last-of-type {
       display: flex;
       flex-direction: row;
       align-items: center;

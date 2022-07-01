@@ -50,11 +50,11 @@ const LoginForm = () => {
         {errMsg}
       </p>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <Grid className={classes.grid_container} container spacing={0}>
+        <Grid className={classes.gridContainer} container spacing={0}>
           <h1>Login</h1>
-          <Grid className={classes.grid_item} item>
+          <Grid className={classes.gridItem} item>
             <TextField
-              className={classes.text_input}
+              className={classes.textInput}
               autoFocus={true}
               type="text"
               required
@@ -65,9 +65,9 @@ const LoginForm = () => {
               // onFocus={() => setUserFocus(true)}
               color={errors?.username?.message ? 'error' : ''}
             />
-            <p className={classes.error_msg}>{errors?.username?.message}</p>
+            <p className={classes.errorMsg}>{errors?.username?.message}</p>
           </Grid>
-          <Grid item className={classes.grid_item}>
+          <Grid item className={classes.gridItem}>
             <TextField
               className={classes.text_input}
               {...register('password')}
@@ -78,21 +78,18 @@ const LoginForm = () => {
               // onFocus={() => setPwdFocus(true)}
               color={errors?.password?.message ? 'error' : ''}
             />
-            <p className={classes.error_msg}>{errors?.password?.message}</p>
+            <p className={classes.errorMsg}>{errors?.password?.message}</p>
           </Grid>
-          <Grid item className={classes.grid_item}>
+          <Grid item className={classes.gridItem}>
             <Button
-              className={classes.button_submit}
+              className={classes.buttonSubmit}
               type="submit"
               variant="outlined"
             >
               Sign In
             </Button>
           </Grid>
-          <Grid
-            item
-            className={`${classes.grid_item} ${classes.grid_item_last}`}
-          >
+          <Grid item className={`${classes.gridItem} ${classes.gridItem_last}`}>
             <p>Already registered?</p>
             <Link href="/auth/login">
               <Button>

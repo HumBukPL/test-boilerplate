@@ -17,7 +17,7 @@ const CREATE_USER_MUTATION = gql`
   mutation UserRegister($record: CreateUserInput) {
     userRegister(record: $record) {
       _id
-      token
+      activeToken
     }
   }
 `
@@ -72,7 +72,7 @@ const RegisterForm = () => {
       // ToDo
       // Login and redirect to home page
       setSuccess(true)
-      console.log(`Sukces`)
+      console.log(result)
     }
   }
 
@@ -94,11 +94,11 @@ const RegisterForm = () => {
         {errMsg}
       </p>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <Grid className={classes.grid_container} container spacing={0}>
+        <Grid className={classes.gridContainer} container spacing={0}>
           <h1>Register</h1>
-          <Grid className={classes.grid_item} item>
+          <Grid className={classes.gridItem} item>
             <TextField
-              className={classes.text_input}
+              className={classes.textInput}
               autoFocus={true}
               type="text"
               {...register('username')}
@@ -110,9 +110,9 @@ const RegisterForm = () => {
             />
             <p className={classes.error_msg}>{errors?.username?.message}</p>
           </Grid>
-          <Grid item className={classes.grid_item}>
+          <Grid item className={classes.gridItem}>
             <TextField
-              className={classes.text_input}
+              className={classes.textInput}
               {...register('password')}
               label="password"
               type="password"
@@ -123,9 +123,9 @@ const RegisterForm = () => {
             />
             <p className={classes.error_msg}>{errors?.password?.message}</p>
           </Grid>
-          <Grid item className={classes.grid_item}>
+          <Grid item className={classes.gridItem}>
             <TextField
-              className={classes.text_input}
+              className={classes.textInput}
               {...register('confirmPwd')}
               label="Confirm Password"
               type="password"
@@ -134,21 +134,18 @@ const RegisterForm = () => {
               // onFocus={() => setMatchFocus(true)}
               color={errors?.confirmPwd?.message ? 'error' : ''}
             />
-            <p className={classes.error_msg}>{errors.confirmPwd?.message}</p>
+            <p className={classes.errorMsg}>{errors.confirmPwd?.message}</p>
           </Grid>
-          <Grid item className={classes.grid_item}>
+          <Grid item className={classes.gridItem}>
             <Button
-              className={classes.button_submit}
+              className={classes.buttonSubmit}
               type="submit"
               variant="outlined"
             >
               Sign Up
             </Button>
           </Grid>
-          <Grid
-            item
-            className={`${classes.grid_item} ${classes.grid_item_last}`}
-          >
+          <Grid item className={classes.gridItem}>
             <p>Already registered?</p>
             <Link href="/auth/login">
               <Button>
