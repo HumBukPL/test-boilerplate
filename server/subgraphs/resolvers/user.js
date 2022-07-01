@@ -1,10 +1,12 @@
 import { composeMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
 import { moongose } from 'mongoose'
-import { User } from '../models/user'
-
 import User from "../models/user"
+
 const customizationOptions = {};
+const UserTC = composeMongoose(User, customizationOptions);
+
+UserTC.removeField('password');
 
 schemaComposer.createInputTC({
   name: 'CreateUserInput',
@@ -14,8 +16,6 @@ schemaComposer.createInputTC({
     password: 'String'
   }
 });
-
-const UserTC = composeMongoose(User, customizationOptions);
 
 UserTC.addResolver({
   name: 'test',
@@ -29,7 +29,7 @@ UserTC.addResolver({
 })
 // Testing customresolves
 UserTC.addResolver({
-  name: 'CreateTokenAndSave',
+  name: 'Register',
   args : { record: 'CreateUserInput'},
   type: UserTC,
   resolve: async({source, args}) => {
@@ -39,13 +39,10 @@ UserTC.addResolver({
     console.log(args)
     console.log(source)
 
-    const user = new User({
-      login: args.login,
-      password: args.password
-    })
-    await user.save()
-    // jwt.generate(user.id)
-    //return jwt
+    const user = new User(args.record);
+    await user.save();
+    user.generateAuthToken();
+    return user
   }
 })
 
@@ -77,14 +74,10 @@ const UserQuery = {
 };
 
 const UserMutation = {
-  userCreateOne: UserTC.getResolver('test'),
-  userCreateMany: UserTC.mongooseResolvers.createMany(),
+  userRegister: UserTC.getResolver('Register'),
   userUpdateById: UserTC.mongooseResolvers.updateById(),
-  userUpdateOne: UserTC.mongooseResolvers.updateOne(),
-  userUpdateMany: UserTC.mongooseResolvers.updateMany(),
   userRemoveById: UserTC.mongooseResolvers.removeById(),
   userRemoveOne: UserTC.mongooseResolvers.removeOne(),
-  userRemoveMany: UserTC.mongooseResolvers.removeMany(),
 };
 
 export {

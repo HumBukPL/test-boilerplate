@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
+
+import Task from './task'
+
 
 const { SECRET_KEY } = process.env
-import Task from './task'
-import Task from './task'
-import bcrypt from "bcrypt";
 
 const UserSchema = new mongoose.Schema({
   login:
@@ -20,8 +21,14 @@ const UserSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-
+  token: String
 });
+
+UserSchema.methods.generateAuthToken = async function () 
+{
+  this.token = jwt.sign({ _id: this._id.toString() }, SECRET_KEY);
+}
+
 UserSchema.virtual('tasks', {
   ref: 'Task',
   localField: '_id',
