@@ -27,11 +27,11 @@ const UserSchema = new mongoose.Schema({
       }
     }
   },
-  active_token:
+  activeToken:
   {
     type: String
   },
-  tokens: [{
+  nonValidTokens: [{
     token: {
       type: String,
       required:true
