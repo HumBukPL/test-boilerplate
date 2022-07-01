@@ -10,28 +10,21 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import Grid from '@mui/material/Grid'
 
-// ToDo
-// dodać RHF
-//
-
-// Login zaczyna sie od litery
 const LOGIN_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
-// Mala litera + duza litera + cyfra + znak specjalny
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
 const CREATE_USER_MUTATION = gql`
-  mutation UserCreateOne($record: CreateOneUserInput!) {
-    userCreateOne(record: $record) {
-      record {
-        login
-        password
-      }
+  mutation UserRegister($record: CreateUserInput) {
+    userRegister(record: $record) {
+      _id
+      token
     }
   }
 `
 
 const RegisterForm = () => {
   const formSchema = Yup.object().shape({
+    // Validation
     username: Yup.string()
       .required('Username is mandatory')
       .min(3, 'Username must be at 3 char long')
@@ -58,11 +51,12 @@ const RegisterForm = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm(formOptions)
 
+  // ReigsterHandler
   const onSubmit = async (data) => {
+    console.log(data)
     const result = await createNewUser({
       variables: {
         record: {
@@ -71,13 +65,14 @@ const RegisterForm = () => {
         },
       },
     })
-
     if (result?.errors) {
+      // Or new msg with error
       setErrMsg('Nie udalo sie utworzyc konta!')
     } else {
-      // Zalogowanie i przekierowanie na strone główną
+      // ToDo
+      // Login and redirect to home page
       setSuccess(true)
-      console.log(`Sukces: ${success}`)
+      console.log(`Sukces`)
     }
   }
 
@@ -85,21 +80,22 @@ const RegisterForm = () => {
 
   const errRef = useRef()
 
-  const [userFocus, setUserFocus] = useState(false)
-  const [pwdFocus, setPwdFocus] = useState(false)
-  const [matchFocus, setMatchFocus] = useState(false)
+  // const [userFocus, setUserFocus] = useState(false)
+  // const [pwdFocus, setPwdFocus] = useState(false)
+  // const [matchFocus, setMatchFocus] = useState(false)
 
   const [errMsg, setErrMsg] = useState('')
   const [success, setSuccess] = useState(false)
 
   return (
     <>
+      {/* Err msg to change */}
       <p ref={errRef} className={errMsg ? 'errmsg' : classes.offscreen}>
         {errMsg}
       </p>
-      <h1>Register</h1>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Grid className={classes.grid_container} container spacing={0}>
+          <h1>Register</h1>
           <Grid className={classes.grid_item} item>
             <TextField
               className={classes.text_input}
@@ -109,7 +105,7 @@ const RegisterForm = () => {
               label="Login"
               id="username"
               autoComplete="off"
-              onFocus={() => setUserFocus(true)}
+              // onFocus={() => setUserFocus(true)}
               color={errors?.username?.message ? 'error' : ''}
             />
             <p className={classes.error_msg}>{errors?.username?.message}</p>
@@ -122,10 +118,10 @@ const RegisterForm = () => {
               type="password"
               id="password"
               required
-              onFocus={() => setPwdFocus(true)}
-              color={errors.password?.message ? 'error' : ''}
+              // onFocus={() => setPwdFocus(true)}
+              color={errors?.password?.message ? 'error' : ''}
             />
-            <p className={classes.error_msg}>{errors.password?.message}</p>
+            <p className={classes.error_msg}>{errors?.password?.message}</p>
           </Grid>
           <Grid item className={classes.grid_item}>
             <TextField
@@ -135,8 +131,8 @@ const RegisterForm = () => {
               type="password"
               id="confirm_pwd"
               required
-              onFocus={() => setMatchFocus(true)}
-              color={errors.confirmPwd?.message ? 'error' : ''}
+              // onFocus={() => setMatchFocus(true)}
+              color={errors?.confirmPwd?.message ? 'error' : ''}
             />
             <p className={classes.error_msg}>{errors.confirmPwd?.message}</p>
           </Grid>

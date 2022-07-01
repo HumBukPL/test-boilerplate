@@ -1,18 +1,19 @@
-.link{
+.link {
   font-size: 1.2em;
   padding: 1.2em;
   float: left;
+  transition: 0.3s;
 }
 
-.link:hover{
+.link:hover {
   background: rgb(61, 61, 61);
 }
 
-.active{
+.active {
   font-size: 1.2em;
   font-weight: bold;
   padding: 1.2em;
   background: rgb(61, 61, 61);
-  color:whitesmoke;
+  color: whitesmoke;
   float: left;
 }

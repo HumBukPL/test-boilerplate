@@ -1266,9 +1266,9 @@
   "resolved" "https://registry.npmjs.org/@next/react-refresh-utils/-/react-refresh-utils-12.0.4.tgz"
   "version" "12.0.4"
 
-"@next/swc-win32-x64-msvc@12.0.4":
-  "integrity" "sha512-f+7WNIJOno5QEelrmob+3vN5EZJb3KCkOrnvUsQ0+LCCD0dIPIhCjeHAh3BGj9msGu8ijnXvD7JxVxE5V26cnQ=="
-  "resolved" "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.0.4.tgz"
+"@next/swc-darwin-arm64@12.0.4":
+  "integrity" "sha512-7WMen1qhF5JmjKD9S5IEgEoaPJOXyIZj/Nsqa8ZSWxdF5oogp3uYYbKb/rvMYoKzpIbjyoLH/OCM5lm5IFM4iw=="
+  "resolved" "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-12.0.4.tgz"
   "version" "12.0.4"
 
 "@nodelib/fs.scandir@2.1.5":
@@ -4969,6 +4969,11 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
+"fsevents@^2.1.2", "fsevents@~2.3.1", "fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
+
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
@@ -8523,11 +8528,7 @@
     "object-assign" "^4.1.1"
     "scheduler" "^0.20.2"
 
-<<<<<<< HEAD
 "react-hook-form@^7.0.0", "react-hook-form@^7.33.0":
-=======
-"react-hook-form@^7.33.0":
->>>>>>> 05f90db1ccde634227f48f67aa031476c5e00b15
   "integrity" "sha512-h8XoeUHQs1Snx1s/sSvM+eVTSKkWQt8TcrbL+3/Rt5gugxpy4ueL5ZZkubffyNpUyyTz0qM0kwOi2c+JgGTjLA=="
   "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.33.0.tgz"
   "version" "7.33.0"

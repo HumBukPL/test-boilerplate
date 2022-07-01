@@ -1,18 +1,45 @@
 import React from 'react'
 import { useRef, useState, useEffect } from 'react'
-import classes from './registerform.module.css'
 import Link from 'next/link'
 import { TextField, Button, Box } from '@mui/material'
+import classes from './registerform.module.scss'
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+import Grid from '@mui/material/Grid'
 
 // Login zaczyna sie od litery
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
+const LOGIN_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
 // Mala litera + duza litera + cyfra + znak specjalny
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
 const LoginForm = () => {
+  const formSchema = Yup.object().shape({
+    username: Yup.string()
+      .required('Username is mandatory')
+      .min(3, 'Username must be at 3 char long')
+      .max(23, 'Username can not be longer than 23 char')
+      .matches(LOGIN_REGEX, 'Incorrect username'),
+    password: Yup.string()
+      .required('Password is mandatory')
+      .matches(PWD_REGEX, 'Invalid password'),
+  })
+
+  const formOptions = { resolver: yupResolver(formSchema) }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm(formOptions)
+
+  const onSubmit = async (data) => {
+    console.log(data)
+    // Tutaj dodac logowanie po zrobieniu backendu
+  }
+
   const userRef = useRef()
   const errRef = useRef()
 
@@ -27,86 +54,66 @@ const LoginForm = () => {
   const [errMsg, setErrMsg] = useState('')
   const [success, setSuccess] = useState(false)
 
-  useEffect(() => {
-    userRef.current.focus()
-  }, [])
-
-  useEffect(() => {
-    const result = USER_REGEX.test(user)
-    console.log(result)
-    console.log(user)
-    setValidName(result)
-  }, [user])
-
-  useEffect(() => {
-    const result = PWD_REGEX.test(user)
-    console.log(result)
-    console.log(pwd)
-    setValidPwd(true)
-  }, [pwd])
-
-  useEffect(() => {
-    setErrMsg('')
-  }, [user, pwd])
-
-  const { login, handleSubmit } = useForm()
-
   return (
-    <section className={classes.wraper}>
-      <div className={classes.container}>
-        <p
-          ref={errRef}
-          className={errMsg ? 'errmsg' : classes.offscreen}
-          aria-live="assertive"
-        >
-          {errMsg}
-        </p>
-        <h1>Login</h1>
-        <form className={classes.formBox}>
-          <div className={classes.control}>
-            <PersonOutlineRoundedIcon sx={{ fontSize: 40 }} />
+    <>
+      {/* Wiadomosc z bledem do zrobienia po napisanie backendu */}
+      <p ref={errRef} className={errMsg ? 'errmsg' : classes.offscreen}>
+        {errMsg}
+      </p>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <Grid className={classes.grid_container} container spacing={0}>
+          <h1>Login</h1>
+          <Grid className={classes.grid_item} item>
             <TextField
-              label="Username"
+              className={classes.text_input}
+              autoFocus={true}
               type="text"
-              id="username"
-              ref={userRef}
-              autocomplete="off"
-              onChange={(e) => setUser(e.target.value)}
               required
-              onFocus={() => setUserFocus(true)}
-              onBlur={() => setUserFocus(false)}
+              {...register('username', { max: 23, min: 3 })}
+              label="Login"
+              id="username"
+              autoComplete="off"
+              // onFocus={() => setUserFocus(true)}
+              color={errors?.username?.message ? 'error' : ''}
             />
-          </div>
-          <div className={classes.control}>
-            <VpnKeyRoundedIcon sx={{ fontSize: 40 }} />
+            <p className={classes.error_msg}>{errors?.username?.message}</p>
+          </Grid>
+          <Grid item className={classes.grid_item}>
             <TextField
-              label="Password"
+              className={classes.text_input}
+              {...register('password', { max: 24, min: 8 })}
+              label="password"
               type="password"
               id="password"
-              onChange={(e) => setPwd(e.target.value)}
               required
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
+              // onFocus={() => setPwdFocus(true)}
+              color={errors?.password?.message ? 'error' : ''}
             />
-          </div>
-          <div className={classes.control}>
+            <p className={classes.error_msg}>{errors?.password?.message}</p>
+          </Grid>
+          <Grid item className={classes.grid_item}>
             <Button
-              className={classes.loginButton}
+              className={classes.button_submit}
+              type="submit"
               variant="outlined"
-              disabled={!validName || !validPwd ? true : false}
             >
-              Sign in
+              Sign In
             </Button>
-          </div>
-          <div className={classes.control}>
-            <span>Need account?</span>
-            <Link href="/auth/register">
-              <a>Sign up</a>
+          </Grid>
+          <Grid
+            item
+            className={`${classes.grid_item} ${classes.grid_item_last}`}
+          >
+            <p>Already registered?</p>
+            <Link href="/auth/login">
+              <Button>
+                <a>Sign up</a>
+              </Button>
             </Link>
-          </div>
-        </form>
-      </div>
-    </section>
+          </Grid>
+        </Grid>
+      </form>
+    </>
   )
 }
 

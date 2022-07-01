@@ -1,25 +1,25 @@
-.link{
+.link {
   font-size: 1.2em;
   padding: 1.2em;
 }
 
-.link:hover{
+.link:hover {
   background: rgb(61, 61, 61);
 }
 
-.navbar{
+.navbar {
   background-color: #b6b0b0;
   overflow: auto;
   position: sticky;
   top: 0;
 }
 
-.active{
+.active {
   font-size: 1.2em;
   font-weight: bold;
   padding: 1.2em;
   background: rgb(61, 61, 61);
-  color:whitesmoke;
+  color: whitesmoke;
 }
 
 .sticky {
