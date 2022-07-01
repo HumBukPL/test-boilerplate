@@ -1,7 +1,7 @@
 import { composeMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
 import { moongose } from 'mongoose'
-import { User } from '../models/user'
+
 
 import User from "../models/user"
 const customizationOptions = {};
