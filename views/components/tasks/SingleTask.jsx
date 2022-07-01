@@ -70,7 +70,7 @@ const SingleTask = (props) => {
           DELETE TASK
         </Button>
         <Snackbar
-          autoHideDuration={6000}
+          autoHideDuration={3000}
           open={openChangedSnackbar}
           message="Changed completion state"
           close={handleCloseSnackbar}
