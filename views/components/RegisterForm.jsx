@@ -27,16 +27,16 @@ const RegisterForm = () => {
     // Validation
     username: Yup.string()
       .required('Username is mandatory')
-      .min(3, 'Username must be at 3 char long')
-      .max(23, 'Username can not be longer than 23 char')
+      //.min(3, 'Username must be at 3 char long')
+      //.max(23, 'Username can not be longer than 23 char')
       .matches(
         LOGIN_REGEX,
         'Username must be between 3-23 chars and can contain small/big letters and numbers'
       ),
     password: Yup.string()
       .required('Password is mandatory')
-      .min(8, 'Password must be at 8 char long')
-      .max(24, 'Password can not be longer than 24 char')
+      //.min(8, 'Password must be at 8 char long')
+      //.max(24, 'Password can not be longer than 24 char')
       .matches(
         PWD_REGEX,
         'Password must be between 8-24 chars and have to contain One small letter One big, One number and One special char'
@@ -101,7 +101,7 @@ const RegisterForm = () => {
               className={classes.text_input}
               autoFocus={true}
               type="text"
-              {...register('username', { max: 23, min: 3 })}
+              {...register('username')}
               label="Login"
               id="username"
               autoComplete="off"
@@ -113,7 +113,7 @@ const RegisterForm = () => {
           <Grid item className={classes.grid_item}>
             <TextField
               className={classes.text_input}
-              {...register('password', { max: 24, min: 8 })}
+              {...register('password')}
               label="password"
               type="password"
               id="password"
