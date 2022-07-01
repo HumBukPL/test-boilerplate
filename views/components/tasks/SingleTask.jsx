@@ -26,7 +26,7 @@ mutation TaskUpdateById($id: MongoID!, $record: UpdateByIdTaskInput!) {
 }`
 
 const SingleTask = (props) => {
-  const [isCompleted, setIsCompleted] = useState(props.completed)
+  const [isCompleted, setIsCompleted] = useState(props.object.completed)
   const [deleteTask] = useMutation(DELETE_TASK_MUTATION)
   const [completeTask] = useMutation(COMPLETE_TASK_MUTATION)
 
@@ -34,20 +34,20 @@ const SingleTask = (props) => {
     e.preventDefault()
 
     setIsCompleted(!isCompleted)
-    //TODO: change state in database
-    completeTask({ variables: { id: props.id, record: {completed: !isCompleted}}})
+    completeTask({ variables: { id: props.object.id, record: {completed: !isCompleted}}})
   }
 
   const deleteButtonHandler = (e) => {
     e.preventDefault()
     //TODO: refetchQueries
-    deleteTask({ variables: { id: props.id }})
+    props.onDelete({ variables: { id: props.object.id }})
+    //deleteTask({ variables: { id: props.object.id }})
   }
 
   return (
     <li id={props.id} className={classes.task}>
-      <h1>{props.title}</h1>
-      <p>{props.desc}</p>
+      <h1>{props.object.title}</h1>
+      <p>{props.object.desc}</p>
       <div className={classes.switches}>
         <FormControlLabel
           control={

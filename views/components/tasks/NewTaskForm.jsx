@@ -16,8 +16,8 @@ const NewTaskForm = (props) => {
 
     props.onAddTask(data);
     setSendingTask(false);
-    // router.prefetch("/tasks")
-    // router.push('/tasks')
+    //router.prefetch("/tasks")
+    router.push('/tasks')
   }
 
   if (sendingTask) return <h1>Saving task</h1>

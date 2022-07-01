@@ -10,6 +10,8 @@
 .navbar{
   background-color: #b6b0b0;
   overflow: hidden;
+  position: sticky;
+  top: 0;
 }
 
 .active{
