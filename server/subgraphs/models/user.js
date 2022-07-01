@@ -31,12 +31,12 @@ const UserSchema = new mongoose.Schema({
   {
     type: String
   },
-  nonValidTokens: [{
-    token: {
-      type: String,
-      required:true
-    }
-  }]
+  // nonValidTokens: [{   zostanie dodane potem
+  //   token: {
+  //     type: String,
+  //     required:true
+  //   }
+  // }]
 });
 
 UserSchema.methods.generateAuthToken = async function () {

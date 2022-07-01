@@ -12,10 +12,10 @@ const auth = async(resolve, source, args, context, info) => {
     throw new Error('User not found')
   }
 
-  const match = user.nonValidTokens.find((temp) => temp === token)
-  if(match) {
-    throw new Error('Token is non valid')
-  }
+  // const match = user.nonValidTokens.find((temp) => temp === token)
+  // if(match) {
+  //   throw new Error('Token is non valid')
+  // }
 
   } catch {
     throw new Error('Please authenticate')
