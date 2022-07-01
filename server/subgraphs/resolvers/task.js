@@ -28,9 +28,6 @@ TaskTC.addResolver({
     //1.Finding user
     //2.Creating task with user id
     //3.Saving task
-    console.log(context.req.headers.authorization)
-    console.log(args)
-    
     const token = context.req.headers.authorization.replace('Bearer ', '')
     const decoded = jwt.verify(token, process.env.SECRET_KEY)
     const user = await User.findOne({ _id: decoded._id})
