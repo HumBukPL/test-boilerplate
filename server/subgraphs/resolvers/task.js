@@ -13,10 +13,15 @@ const TaskTC = composeMongoose(Task, customizationOptions)
 schemaComposer.createInputTC({
   name: 'CreateTaskInput',
   fields:
-  {
-    title: 'String',
-    description: 'String',
-    completed: 'Boolean'
+  
+   {
+   
+          title: 'String',
+    
+       description: 'String',
+     
+     
+       completed: 'Boolean'
   }
 })
 
@@ -53,6 +58,10 @@ TaskTC.addResolver({
     return user.tasks;
   }
 });
+
+TaskTC.addResolver({
+
+})
 
 const TaskQuery = {
   taskById: TaskTC.mongooseResolvers.findById().withMiddlewares([auth]),
