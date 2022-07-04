@@ -7,11 +7,20 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import Grid from '@mui/material/Grid'
+import { gql, useMutation } from '@apollo/client'
 
 // Login zaczyna sie od litery
 const LOGIN_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
 // Mala litera + duza litera + cyfra + znak specjalny
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
+
+const LOGIN_USER_MUTATION = gql`
+  mutation Mutation($record: LoginUserInput) {
+    userLogin(record: $record) {
+      activeToken
+    }
+  }
+`
 
 const LoginForm = () => {
   const formSchema = Yup.object().shape({
@@ -35,13 +44,31 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     console.log(data)
-    // Tutaj dodac logowanie po zrobieniu backendu
+    const result = await loginUser({
+      variables: {
+        record: {
+          login: data.username,
+          password: data.password,
+        },
+      },
+    })
+
+    if (result?.errors) {
+      console.log('Error!')
+      console.log(result.errors)
+    } else {
+      const token = result.data.userLogin.activeToken
+      console.log(token)
+      sessionStorage.setItem('token', token)
+    }
   }
 
   const errRef = useRef()
 
   const [errMsg, setErrMsg] = useState('')
   const [success, setSuccess] = useState(false)
+
+  const [loginUser] = useMutation(LOGIN_USER_MUTATION)
 
   return (
     <>
