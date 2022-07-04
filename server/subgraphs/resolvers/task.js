@@ -6,6 +6,7 @@ import User from '../models/user'
 import next from 'next'
 import { contentSecurityPolicy } from 'helmet'
 import auth from '../utils/auth'
+import moongose, { isObjectIdOrHexString } from 'mongoose'
 
 const customizationOptions = {}
 const TaskTC = composeMongoose(Task, customizationOptions)
@@ -15,18 +16,21 @@ schemaComposer.createInputTC({
   fields:
   
    {
-   
-          title: 'String',
-    
-       description: 'String',
-     
-     
-       completed: 'Boolean'
+    title: 'String',
+    description: 'String',
+    completed: 'Boolean'
+  }
+})
+
+schemaComposer.createInputTC({
+  name: 'removeById',
+  fields:{
+    _id: 'String'
   }
 })
 
 TaskTC.addResolver({
-  name: 'Creating',
+  name: 'createOneTask',
   args: {record: 'CreateTaskInput'},
   type: TaskTC,
   resolve: async({source, args, context}) => {
@@ -60,7 +64,22 @@ TaskTC.addResolver({
 });
 
 TaskTC.addResolver({
-
+  name: 'deleteTask',
+  args: {record: 'removeById'},
+  type: TaskTC,
+  resolve: async({ args, context }) => {
+    const token = context.req.headers.authorization.replace('Bearer ', '');
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const user = await User.findById(decoded);
+    await user.populate('tasks')
+    const taskToDel = user.tasks.filter((task) => {
+      return args.record._id === task._id.toString()
+    })
+    if(!taskToDel) {
+      throw new Error('Task not found')
+    }
+    return await Task.findByIdAndDelete({ _id: args.record._id, owner: user._id})
+  }
 })
 
 const TaskQuery = {
@@ -72,12 +91,10 @@ const TaskQuery = {
 }
 
 const TaskMutation = {
-  taskCreateOne: TaskTC.getResolver('Creating').withMiddlewares([auth]),
+  taskCreateOne: TaskTC.getResolver('createOneTask').withMiddlewares([auth]),
   taskUpdateById: TaskTC.mongooseResolvers.updateById().withMiddlewares([auth]),
   taskUpdateOne: TaskTC.mongooseResolvers.updateOne().withMiddlewares([auth]),
-  taskRemoveById: TaskTC.mongooseResolvers.removeById().withMiddlewares([auth]),
-  taskRemoveOne: TaskTC.mongooseResolvers.removeOne().withMiddlewares([auth]),
-  taskRemoveMany: TaskTC.mongooseResolvers.removeMany().withMiddlewares([auth]),
+  taskRemoveById: TaskTC.getResolver('deleteTask').withMiddlewares([auth])
 }
 
 export {
