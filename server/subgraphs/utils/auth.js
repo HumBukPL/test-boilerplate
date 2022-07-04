@@ -16,7 +16,7 @@ const auth = async(resolve, source, args, context, info) => {
   // if(match) {
   //   throw new Error('Token is non valid')
   // }
-
+  context.req.user = user;
   } catch {
     throw new Error('Please authenticate')
   }

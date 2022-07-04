@@ -28,9 +28,7 @@ TaskTC.addResolver({
     //1.Finding user
     //2.Creating task with user id
     //3.Saving task
-    const token = context.req.headers.authorization.replace('Bearer ', '')
-    const decoded = jwt.verify(token, process.env.SECRET_KEY)
-    const user = await User.findOne({ _id: decoded._id})
+    const user = context.req.user;
     const task = new Task({
       ...args.record,
       owner: user._id
@@ -45,14 +43,17 @@ TaskTC.addResolver({
   type: '[Task!]!',
   resolve: async ({ context }) =>
   {
-    const token = context.req.headers.authorization.replace('Bearer ', '');
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    const user = await User.findById(decoded);
+    const user = context.req.user;
     await user.populate('tasks');
-    console.log(user.tasks);
     return user.tasks;
   }
 });
+
+// TaskTC.addResolver({
+//   name: 'UpadateMyTaskById',
+//   type: TaskTC,
+//   resolve: async
+// });
 
 const TaskQuery = {
   taskById: TaskTC.mongooseResolvers.findById().withMiddlewares([auth]),
