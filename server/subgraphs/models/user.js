@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
-
-import Task from './task'
-
+import validator from "validator"
 
 const { SECRET_KEY } = process.env
 
@@ -13,7 +11,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true
+    unique: true,
+    // validate(value)
+    // {
+    //   if (!validator.isEmail(value))
+    //     return
+    //   throw new Error("This is not an email.");
+    // }
   },
   password:
   {
