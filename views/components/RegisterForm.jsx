@@ -67,6 +67,7 @@ const RegisterForm = () => {
     })
     if (result?.errors) {
       // Or new msg with error
+      console.log(errors)
       setErrMsg('Nie udalo sie utworzyc konta!')
     } else {
       // ToDo
@@ -74,7 +75,7 @@ const RegisterForm = () => {
       setSuccess(true)
       const token = result.data.userRegister.activeToken
       console.log(token)
-      sessionStorage.setItem('token', JSON.stringify(token))
+      sessionStorage.setItem('token', token)
     }
   }
 

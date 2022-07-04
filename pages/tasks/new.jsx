@@ -6,12 +6,10 @@ import Card from '@views/components/ui/Card'
 
 
 const CREATE_TASK_MUTATION = gql`
-mutation TaskCreateOne($record: CreateOneTaskInput!) {
+mutation TaskCreateOne($record: CreateTaskInput!) {
   taskCreateOne(record: $record) {
-    record {
     title,
     description
-    }
   }
 }
 `;
