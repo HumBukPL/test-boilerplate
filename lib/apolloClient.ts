@@ -41,7 +41,8 @@ const apollo = new ApolloClient({
       errorPolicy: 'all',
     },
   },
-  ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
+  ssrMode: true,//!process.browser, // Disables forceFetch on the server (so queries are only run once)
+  ssrForceFetchDelay: 200,
   link,
   cache,
 })

@@ -17,14 +17,12 @@ const GET_ALL_TASKS = gql`
   }
 `
 
-// export async function getServerSideProps(context) {
-//   const tasks = getTasks();
-//   console.log(tasks)
-//   return({props:{}})
-// }
+export async function getServerSideProps(context) {
+  return({props:{}})
+}
 
 const Tasks = (props) => {
-  const { loading, error, data } = useQuery(GET_ALL_TASKS, {
+  const { loading, error, data } = useQuery(GET_ALL_TASKS, { ssr:true,
     fetchPolicy: 'network-only',
   })
 

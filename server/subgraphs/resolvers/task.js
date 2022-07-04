@@ -55,29 +55,17 @@ TaskTC.addResolver({
 });
 
 const TaskQuery = {
-  taskById: TaskTC.mongooseResolvers.findById(),
-  taskByIds: TaskTC.mongooseResolvers.findByIds(),
-  taskOne: TaskTC.mongooseResolvers.findOne(),
+  taskById: TaskTC.mongooseResolvers.findById().withMiddlewares([auth]),
+  taskByIds: TaskTC.mongooseResolvers.findByIds().withMiddlewares([auth]),
+  taskOne: TaskTC.mongooseResolvers.findOne().withMiddlewares([auth]),
   taskMany: TaskTC.getResolver('findMyTasks').withMiddlewares([auth]),
-  taskDataLoader: TaskTC.mongooseResolvers.dataLoader(),
-  taskDataLoaderMany: TaskTC.mongooseResolvers.dataLoaderMany(),
-  taskByIdLean: TaskTC.mongooseResolvers.findById({ lean: true }),
-  taskByIdsLean: TaskTC.mongooseResolvers.findByIds({ lean: true }),
-  taslOneLean: TaskTC.mongooseResolvers.findOne({ lean: true }),
-  taskManyLean: TaskTC.mongooseResolvers.findMany({ lean: true }),
-  taskDataLoaderLean: TaskTC.mongooseResolvers.dataLoader({ lean: true }),
-  taskDataLoaderManyLean: TaskTC.mongooseResolvers.dataLoaderMany({ lean: true }),
-  taskCount: TaskTC.mongooseResolvers.count(),
-  taskConnection: TaskTC.mongooseResolvers.connection(),
-  taskPagination: TaskTC.mongooseResolvers.pagination(),
+  taskCount: TaskTC.mongooseResolvers.count().withMiddlewares([auth]),
 }
 
 const TaskMutation = {
   taskCreateOne: TaskTC.getResolver('Creating').withMiddlewares([auth]),
-  taskCreateMany: TaskTC.mongooseResolvers.createMany().withMiddlewares([auth]),
   taskUpdateById: TaskTC.mongooseResolvers.updateById().withMiddlewares([auth]),
   taskUpdateOne: TaskTC.mongooseResolvers.updateOne().withMiddlewares([auth]),
-  taskUpdateMany: TaskTC.mongooseResolvers.updateMany().withMiddlewares([auth]),
   taskRemoveById: TaskTC.mongooseResolvers.removeById().withMiddlewares([auth]),
   taskRemoveOne: TaskTC.mongooseResolvers.removeOne().withMiddlewares([auth]),
   taskRemoveMany: TaskTC.mongooseResolvers.removeMany().withMiddlewares([auth]),
