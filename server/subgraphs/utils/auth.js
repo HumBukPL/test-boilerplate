@@ -20,7 +20,6 @@ const auth = async(resolve, source, args, context, info) => {
   } catch {
     throw new Error('Please authenticate')
   }
-
   return resolve(source, args, context, info)
 }
 

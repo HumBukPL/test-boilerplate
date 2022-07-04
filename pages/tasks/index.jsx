@@ -26,6 +26,8 @@ const Tasks = (props) => {
     fetchPolicy: 'network-only',
   })
 
+  //console.log(error)
+
   if (error) return <h1>ERROR</h1>
   if (!loading) {
     return (
