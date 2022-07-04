@@ -67,6 +67,7 @@ const RegisterForm = () => {
     })
     if (result?.errors) {
       // Or new msg with error
+      console.log(errors)
       setErrMsg('Nie udalo sie utworzyc konta!')
     } else {
       // ToDo
