@@ -1,5 +1,5 @@
 module.exports = {
   verbose: true,
   testEnvironment: 'node',
-  testRegex: 'unit.test',
-}
+  testRegex: 'unit.test'
+};

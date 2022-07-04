@@ -27,7 +27,9 @@
     "test:watch": "jest --watch --no-cache",
     "eslint:fix": "eslint . --fix --ignore-path .gitignore",
     "prettify": "node_modules/.bin/prettier --config ./.prettierrc --write \"**/*.ts*\" --write \"**/*.js\" --write \"**/*.json\"",
-    "lint": "eslint --ext .ts --ext .tsx ."
+    "lint": "eslint --ext .js --ext .jsx .",
+    "format:fix": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx . --fix",
+    "formatall:fix": "eslint . --fix"
   },
   "engines": {
     "node": "^14.17.6",
@@ -95,7 +97,7 @@
     "@typescript-eslint/parser": "^4.22.0",
     "autoprefixer": "^10.3.3",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.25.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-graphql": "^4.0.0",
