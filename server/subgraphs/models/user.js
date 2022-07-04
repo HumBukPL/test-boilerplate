@@ -12,12 +12,12 @@ const UserSchema = new mongoose.Schema({
     required: true,
     trim: true,
     unique: true,
-    validate(value)
-    {
-      if (!validator.isEmail(value))
-        return
-      throw new Error("This is not an email.");
-    }
+    // validate(value)
+    // {
+    //   if (!validator.isEmail(value))
+    //     return
+    //   throw new Error("This is not an email.");
+    // }
   },
   password:
   {
